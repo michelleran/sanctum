@@ -13,11 +13,12 @@ public class Storyteller : MonoBehaviour {
 	public const float GATE_COOLDOWN = 4f; // temp
 
 	public const float EVENT_INTERVAL = 4f; // temp
-    public const int EVENT_FACTOR = 5; // temp; larger = smaller likelihood of event
+    public const int EVENT_FACTOR = 2; // temp; larger = smaller likelihood of event
     public const int ATTACK_FACTOR = 2; // temp
     public const int DEATH_FACTOR = 2; // temp
 
     public const float REQUEST_INTERVAL = 10f; // temp
+    public const int REQUEST_FACTOR = 5; // temp
 
 
 	// REFERENCES
@@ -117,10 +118,11 @@ public class Storyteller : MonoBehaviour {
 		openGatesButton.onClick.AddListener (openGates);
         catalog.buttons[(int)Catalog.Feature.House].onClick.AddListener (raiseHouse);
 
-        StartCoroutine (unlockFeature((int)Catalog.Feature.Flowers, raiseFlowers));
+        //unlockFeature((int)Catalog.Feature.Flowers);
 
         // begin creating events
 		InvokeRepeating ("createEvent", EVENT_INTERVAL, EVENT_INTERVAL);
+        InvokeRepeating ("createRequest", REQUEST_INTERVAL, REQUEST_INTERVAL);
 	}
 
 
@@ -138,6 +140,21 @@ public class Storyteller : MonoBehaviour {
 		isTellingStory = false;
 	}
 
+    void unlockFeature(int type) {
+        UnityEngine.Events.UnityAction listener;
+        switch (type) {
+            case (int)Catalog.Feature.House:
+                listener = raiseHouse;
+                StartCoroutine(unlockFeature(type, listener));
+                break;
+
+            case (int)Catalog.Feature.Flowers:
+                listener = raiseFlowers;
+                StartCoroutine(unlockFeature(type, listener));
+                break;
+        }
+    }
+
     IEnumerator unlockFeature(int type, UnityEngine.Events.UnityAction listener) {
         while (isTellingStory)
             yield return new WaitForSeconds(0.5f);
@@ -145,6 +162,7 @@ public class Storyteller : MonoBehaviour {
         catalog.locked.Remove(type);
         Debug.Log(catalog.buttons[type].gameObject.name);
         catalog.buttons[type].gameObject.SetActive(true);
+
         catalog.buttons[type].onClick.AddListener(listener);
     }
 
@@ -166,12 +184,16 @@ public class Storyteller : MonoBehaviour {
         catalog.buttons[type].interactable = available;
     }
 
+    bool roll(int factor) {
+        return Random.Range(0, factor) == 0;
+    }
+
 
     // ~ EVENTS ~ //
 
 	void createEvent() {
         // first, decide whether to have an event or not
-        if (Random.Range(0, EVENT_FACTOR+1) != EVENT_FACTOR)
+        if (!roll(EVENT_FACTOR))
             return;
 
         /* possible events: (TODO: more?)
@@ -186,13 +208,13 @@ public class Storyteller : MonoBehaviour {
 
         if (Open) {
             // monsters may or may not attack
-            if (sanctum.Population > 0 && Random.Range(0, ATTACK_FACTOR+1) == ATTACK_FACTOR) {
+            if (sanctum.Population > 0 && roll(ATTACK_FACTOR)) {
                 Debug.Log("monsters are gonna attack!");
                 // pick random people to kill
                 int killed = 0;
                 List<Person> residents = new List<Person>(sanctum.residents);
                 foreach (Person person in residents) {
-                    if (person.IsAlive && Random.Range(0, DEATH_FACTOR) == 0) {
+                    if (person.IsAlive && roll(DEATH_FACTOR)) {
                         person.IsAlive = false; // TODO: make a killResident function?
                         sanctum.residents.Remove(person);
                         killed++;
@@ -251,13 +273,19 @@ public class Storyteller : MonoBehaviour {
     // ~ REQUESTS ~ //
 
     void createRequest() {
-        if (sanctum.Population > 0) {
+        if (sanctum.Population > 0 && catalog.locked.Count > 0) {
             // request or not?
+            if (!roll(REQUEST_FACTOR))
+                return;
 
             // request a locked feature, thereby unlocking it
+            int i = Random.Range(0, catalog.locked.Count);
+
+            // TODO: display message
+
+            unlockFeature(catalog.locked[i]);
         }
     }
-
 
 	//--- LISTENERS ---//
 

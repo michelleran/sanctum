@@ -20,6 +20,9 @@ public class Storyteller : MonoBehaviour {
     public const float REQUEST_INTERVAL = 30f; // temp
     public const int REQUEST_FACTOR = 5; // temp
 
+    public const float OBSERVANCE_INTERVAL = 20f; // temp
+    public const int OBSERVANCE_FACTOR = 2; // temp
+
 
 	// REFERENCES
 
@@ -121,6 +124,7 @@ public class Storyteller : MonoBehaviour {
         // begin creating events
 		InvokeRepeating ("createEvent", EVENT_INTERVAL, EVENT_INTERVAL);
         InvokeRepeating ("createRequest", REQUEST_INTERVAL, REQUEST_INTERVAL);
+        InvokeRepeating ("createObservance", OBSERVANCE_INTERVAL, OBSERVANCE_INTERVAL);
 	}
 
 
@@ -282,6 +286,26 @@ public class Storyteller : MonoBehaviour {
             unlockFeature(catalog.locked[i]);
         }
     }
+
+
+    // ~ OBSERVANCES ~ //
+
+    void createObservance() {
+        if (sanctum.Population > 0) {
+            // observance or not?
+            if (!roll(OBSERVANCE_FACTOR))
+                return;
+
+            // pick a person
+            int i = Random.Range(0, sanctum.residents.Count);
+            Person person = sanctum.residents[i];
+
+            // pick a message & append name
+            int m = Random.Range(0, Script.observance.Length);
+            StartCoroutine (displayMessages (new string[] { person.name + Script.observance[m] }));
+        }
+    }
+
 
 	//--- LISTENERS ---//
 

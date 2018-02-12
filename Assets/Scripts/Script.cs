@@ -69,7 +69,8 @@ public class Script {
         " misses the scent of flowers." // flowers
     };
 
-    public static string[] observance = { // name will be appended
-        " picks flowers and weaves a crown / lays back and watches the sun go down"
+    public static string[] observance = { // name will be appended // TODO: make available observances dependent on what features there are
+        " picks flowers.",
+        " gathers up fallen leaves."
     };
 }

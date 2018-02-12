@@ -9,6 +9,8 @@ public class Person {
     const int MAX_INTERVAL = 8; // temp
     const int MIN_INTERVAL = 2; // temp
 
+    public string name = "X"; // TODO: give people names
+
     public int note;
     public int interval;
 

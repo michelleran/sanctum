@@ -63,4 +63,13 @@ public class Script {
         "a refugee dies of cold.",
         "a refugee is slain by a monster."
     };
+
+    public static string[] request = { // name will be appended
+        "", // house - blank b/c will never be requested
+        " misses the scent of flowers." // flowers
+    };
+
+    public static string[] observance = { // name will be appended
+        " picks flowers and weaves a crown / lays back and watches the sun go down"
+    };
 }

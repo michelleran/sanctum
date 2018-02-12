@@ -12,12 +12,12 @@ public class Storyteller : MonoBehaviour {
 	public const float GATE_OPEN_DURATION = 20f; // temp
 	public const float GATE_COOLDOWN = 4f; // temp
 
-	public const float EVENT_INTERVAL = 4f; // temp
-    public const int EVENT_FACTOR = 2; // temp; larger = smaller likelihood of event
-    public const int ATTACK_FACTOR = 2; // temp
-    public const int DEATH_FACTOR = 2; // temp
+	public const float EVENT_INTERVAL = 5f; // temp
+    public const int EVENT_FACTOR = 5; // temp; larger = smaller likelihood of event
+    public const int ATTACK_FACTOR = 5; // temp
+    public const int DEATH_FACTOR = 5; // temp
 
-    public const float REQUEST_INTERVAL = 10f; // temp
+    public const float REQUEST_INTERVAL = 30f; // temp
     public const int REQUEST_FACTOR = 5; // temp
 
 
@@ -117,8 +117,6 @@ public class Storyteller : MonoBehaviour {
 
 		openGatesButton.onClick.AddListener (openGates);
         catalog.buttons[(int)Catalog.Feature.House].onClick.AddListener (raiseHouse);
-
-        //unlockFeature((int)Catalog.Feature.Flowers);
 
         // begin creating events
 		InvokeRepeating ("createEvent", EVENT_INTERVAL, EVENT_INTERVAL);
@@ -280,9 +278,7 @@ public class Storyteller : MonoBehaviour {
 
             // request a locked feature, thereby unlocking it
             int i = Random.Range(0, catalog.locked.Count);
-
-            // TODO: display message
-
+            StartCoroutine (displayMessages (new string[] { Script.request[catalog.locked[i]] })); // TODO: name of requester
             unlockFeature(catalog.locked[i]);
         }
     }

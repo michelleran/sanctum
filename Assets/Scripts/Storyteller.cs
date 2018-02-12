@@ -281,9 +281,12 @@ public class Storyteller : MonoBehaviour {
             if (!roll(REQUEST_FACTOR))
                 return;
 
+            // pick someone to serve as requester
+            Person person = sanctum.residents[Random.Range(0, sanctum.residents.Count)];
+
             // request a locked feature, thereby unlocking it
             int i = Random.Range(0, catalog.locked.Count);
-            StartCoroutine (displayMessages (new string[] { Script.request[catalog.locked[i]] })); // TODO: name of requester
+            StartCoroutine (displayMessages (new string[] { person.name + Script.request[catalog.locked[i]] }));
             unlockFeature(catalog.locked[i]);
         }
     }

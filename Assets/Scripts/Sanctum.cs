@@ -54,16 +54,18 @@ public class Sanctum : MonoBehaviour {
 	public float timeForPoints = 10f; // seconds between getting points
 	float timeSinceLastPoints = 0;
 
-    // note that when a new feature is added, numbers will be altered there - not going to use a property for this
     public Dictionary<int, int> features = new Dictionary<int, int>
     {
         {(int)Catalog.Feature.House, 0},
         {(int)Catalog.Feature.Flowers, 0}
     };
 
+    public List<int> existingFeatures;
+
     // TODO: a display to show what features there are
 
 	void Start () {
+        existingFeatures = new List<int>();
 		Capacity = 1;
         Population = 0;
 		Points = 0;
@@ -85,13 +87,10 @@ public class Sanctum : MonoBehaviour {
 
     public string addFeature(int type) {
 
-        features[type] += 1;
+        if (features[type] == 0)
+            existingFeatures.Add(type);
 
-        /*Feature feature = new Feature (type); // TODO: don't bother initializing, just make all static variables instead?
-        Capacity += feature.capacityEffect;
-        pointsPerPerson += feature.pointsPerPersonEffect;
-        timeForPoints += feature.timeForPointsEffect;
-        Points -= feature.cost;*/
+        features[type] += 1;
 
         Capacity += catalog.capacityEffects[type];
         pointsPerPerson += catalog.pointsPerPersonEffects[type];

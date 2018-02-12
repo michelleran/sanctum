@@ -69,8 +69,9 @@ public class Script {
         " misses the scent of flowers." // flowers
     };
 
-    public static string[] observance = { // name will be appended // TODO: make available observances dependent on what features there are
-        " picks flowers.",
-        " gathers up fallen leaves."
+    public static Dictionary<int, string[]> observance = new Dictionary<int, string[]>
+    {
+        { (int)Catalog.Feature.House, new string[] { " repairs a damaged roof.", " mends clothes.", " reads a book." } },
+        { (int)Catalog.Feature.Flowers, new string[] { " picks flowers.", " weaves a flower crown.", " takes a nap amidst the flowers." } }
     };
 }

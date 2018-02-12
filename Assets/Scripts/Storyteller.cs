@@ -17,10 +17,10 @@ public class Storyteller : MonoBehaviour {
     public const int ATTACK_FACTOR = 5; // temp
     public const int DEATH_FACTOR = 5; // temp
 
-    public const float REQUEST_INTERVAL = 30f; // temp
+    public const float REQUEST_INTERVAL = 10f; // temp
     public const int REQUEST_FACTOR = 5; // temp
 
-    public const float OBSERVANCE_INTERVAL = 20f; // temp
+    public const float OBSERVANCE_INTERVAL = 10f; // temp
     public const int OBSERVANCE_FACTOR = 2; // temp
 
 
@@ -105,6 +105,7 @@ public class Storyteller : MonoBehaviour {
 	void raiseTutorialHouse() {
         // circumvent normal process of adding a house
         sanctum.features[(int)Catalog.Feature.House] += 1;
+        sanctum.existingFeatures.Add((int)Catalog.Feature.House);
         sanctum.Capacity += 4; // tutorial house is different from normal
         sanctum.Points -= 25;
 
@@ -291,7 +292,7 @@ public class Storyteller : MonoBehaviour {
     // ~ OBSERVANCES ~ //
 
     void createObservance() {
-        if (sanctum.Population > 0) {
+        if (sanctum.Population > 0) { // TODO: are there any feature-agnostic observances?
             // observance or not?
             if (!roll(OBSERVANCE_FACTOR))
                 return;
@@ -300,9 +301,13 @@ public class Storyteller : MonoBehaviour {
             int i = Random.Range(0, sanctum.residents.Count);
             Person person = sanctum.residents[i];
 
+            // pick a (present) feature for the observance to revolve around
+            int f = Random.Range(0, sanctum.existingFeatures.Count);
+            int feature = sanctum.existingFeatures[f];
+
             // pick a message & append name
-            int m = Random.Range(0, Script.observance.Length);
-            StartCoroutine (displayMessages (new string[] { person.name + Script.observance[m] }));
+            int m = Random.Range(0, Script.observance[feature].Length);
+            StartCoroutine (displayMessages (new string[] { person.name + Script.observance[feature][m] }));
         }
     }
 

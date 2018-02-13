@@ -17,11 +17,11 @@ public class Storyteller : MonoBehaviour {
     public const int ATTACK_FACTOR = 5; // temp
     public const int DEATH_FACTOR = 5; // temp
 
-    public const float REQUEST_INTERVAL = 10f; // temp
+    public const float REQUEST_INTERVAL = 30f; // temp
     public const int REQUEST_FACTOR = 5; // temp
 
-    public const float OBSERVANCE_INTERVAL = 10f; // temp
-    public const int OBSERVANCE_FACTOR = 2; // temp
+    public const float OBSERVANCE_INTERVAL = 20f; // temp
+    public const int OBSERVANCE_FACTOR = 5; // temp
 
 
 	// REFERENCES

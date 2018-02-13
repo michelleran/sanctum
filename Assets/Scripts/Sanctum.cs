@@ -54,11 +54,7 @@ public class Sanctum : MonoBehaviour {
 	public float timeForPoints = 10f; // seconds between getting points
 	float timeSinceLastPoints = 0;
 
-    public Dictionary<int, int> features = new Dictionary<int, int>
-    {
-        {(int)Catalog.Feature.House, 0},
-        {(int)Catalog.Feature.Flowers, 0}
-    };
+    public Dictionary<int, int> features = new Dictionary<int, int>();
 
     public List<int> existingFeatures;
 
@@ -69,6 +65,11 @@ public class Sanctum : MonoBehaviour {
 		Capacity = 1;
         Population = 0;
 		Points = 0;
+
+        features = new Dictionary<int, int> {
+            {(int)Catalog.Feature.House, 0},
+            {(int)Catalog.Feature.Flowers, 0}
+        };
 	}
 
 	void Update () {

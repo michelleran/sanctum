@@ -13,12 +13,12 @@ public class Storyteller : MonoBehaviour {
 	public const float GATE_COOLDOWN = 4f; // temp
 
 	public const float EVENT_INTERVAL = 5f; // temp
-    public const int EVENT_FACTOR = 5; // temp; larger = smaller likelihood of event
+    public const int EVENT_FACTOR = 10; // temp; larger = smaller likelihood of event
     public const int ATTACK_FACTOR = 5; // temp
     public const int DEATH_FACTOR = 5; // temp
 
-    public const float REQUEST_INTERVAL = 30f; // temp
-    public const int REQUEST_FACTOR = 5; // temp
+    public const float REQUEST_INTERVAL = 10f; // temp
+    public const int REQUEST_FACTOR = 3; // temp
 
     public const float OBSERVANCE_INTERVAL = 20f; // temp
     public const int OBSERVANCE_FACTOR = 5; // temp
@@ -34,6 +34,11 @@ public class Storyteller : MonoBehaviour {
 	public Text populationText;
 	public Text pointsText;
     public Text pointsRateText;
+
+    public Text housesText;
+    public Text housesAmountText;
+    public Text flowersText;
+    public Text flowersAmountText;
 
 	public Button raiseGatesButton;
 	public Button openGatesButton;
@@ -112,6 +117,11 @@ public class Storyteller : MonoBehaviour {
         sanctum.existingFeatures.Add((int)Catalog.Feature.House);
         sanctum.Capacity += 4; // tutorial house is different from normal
         sanctum.Points -= 25;
+        housesAmountText.text = "1";
+
+        // introduce features display
+        StartCoroutine (toggleOption (housesText.gameObject, true));
+        StartCoroutine (toggleOption (housesAmountText.gameObject, true));
 
         // finish tutorial script
         StartCoroutine (displayMessages (Script.tutorialD)) ;
@@ -143,7 +153,7 @@ public class Storyteller : MonoBehaviour {
 
 		isTellingStory = true;
 		foreach (string message in messages) {
-			storyText.text = message + "\n\n" + storyText.text;
+            storyText.text = message + "\n\n" + storyText.text; // TODO: tried changing it to append text at bottom but text doesn't move up?
 			yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
 		}
 		isTellingStory = false;
@@ -170,8 +180,10 @@ public class Storyteller : MonoBehaviour {
 
         catalog.locked.Remove(type);
         catalog.buttons[type].gameObject.SetActive(true);
-
         catalog.buttons[type].onClick.AddListener(listener);
+        catalog.labels[type].gameObject.SetActive(true);
+        catalog.amounts[type].gameObject.SetActive(true); 
+        // TODO: features won't necessarily be unlocked in the order the texts are placed, though... maybe programmatically set position? keep track of vertical position of text for last unlocked feature?
     }
 
 	IEnumerator toggleOption(GameObject option, bool active) {

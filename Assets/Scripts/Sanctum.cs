@@ -120,6 +120,9 @@ public class Sanctum : MonoBehaviour {
         catalog.costs[type] *= 2;
         storyteller.toggleAvailability(type, catalog.costs[type] <= points);
 
+        // update features display
+        catalog.amounts[type].text = "" + features[type];
+
         // pick a random message to show
         int m = Random.Range(0, catalog.possibleMessages[type].Length);
         return catalog.possibleMessages[type][m];

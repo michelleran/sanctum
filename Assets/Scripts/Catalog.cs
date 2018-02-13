@@ -12,7 +12,15 @@ public class Catalog : MonoBehaviour
     public Button raiseHouseButton;
     public Button raiseFlowersButton;
 
+    public Text housesText;
+    public Text flowersText;
+
+    public Text housesAmountText;
+    public Text flowersAmountText;
+
     public Button[] buttons;
+    public Text[] labels;
+    public Text[] amounts;
 
     public int[] costs =
     {
@@ -46,6 +54,16 @@ public class Catalog : MonoBehaviour
         buttons = new Button[]{
             raiseHouseButton,
             raiseFlowersButton
+        };
+
+        labels = new Text[]{
+            housesText,
+            flowersText
+        };
+
+        amounts = new Text[]{
+            housesAmountText,
+            flowersAmountText
         };
 
         locked = new List<int>();

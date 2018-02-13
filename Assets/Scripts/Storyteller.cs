@@ -163,7 +163,6 @@ public class Storyteller : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
 
         catalog.locked.Remove(type);
-        Debug.Log(catalog.buttons[type].gameObject.name);
         catalog.buttons[type].gameObject.SetActive(true);
 
         catalog.buttons[type].onClick.AddListener(listener);
@@ -346,7 +345,6 @@ public class Storyteller : MonoBehaviour {
 
 	void raiseHouse() {
         // TODO: encountered a bug where the raisehousebutton wasn't responding after i'd raised 2 houses?
-        Debug.Log("raising a house");
         string message = sanctum.addFeature ((int)Catalog.Feature.House);
         StartCoroutine (displayMessages (new string[] { message }));
 	}

@@ -30,8 +30,10 @@ public class Storyteller : MonoBehaviour {
     public Catalog catalog;
 
 	public Text storyText;
+    public Text gatesText;
 	public Text populationText;
 	public Text pointsText;
+    public Text pointsRateText;
 
 	public Button raiseGatesButton;
 	public Button openGatesButton;
@@ -93,8 +95,10 @@ public class Storyteller : MonoBehaviour {
 		StartCoroutine (toggleButton (openGatesButton, false)); // no cooldown during tutorial
         StartCoroutine (displayMessages (Script.tutorialC)) ;
 
+        StartCoroutine (toggleOption (gatesText.gameObject, true));
 		StartCoroutine (toggleOption (populationText.gameObject, true));
 		StartCoroutine (toggleOption (pointsText.gameObject, true));
+        StartCoroutine (toggleOption (pointsRateText.gameObject, true));
 
         sanctum.addResident(new Person());
         sanctum.Points = 50;
@@ -111,6 +115,8 @@ public class Storyteller : MonoBehaviour {
 
         // finish tutorial script
         StartCoroutine (displayMessages (Script.tutorialD)) ;
+
+        gatesText.text = "closed";
 
         // begin gates cooldown - had previously been deferred
 		StartCoroutine (cooldown ());
@@ -320,6 +326,7 @@ public class Storyteller : MonoBehaviour {
         cooldownIndicator.fillAmount = 1.0f;
 		Open = true;
 		openGatesButton.interactable = false;
+        gatesText.text = "open";
 
         StartCoroutine (displayMessages (Script.gatesOpen));
 		StartCoroutine (countDownToClose ());
@@ -328,6 +335,7 @@ public class Storyteller : MonoBehaviour {
 	IEnumerator countDownToClose() {
 		yield return new WaitForSeconds (GATE_OPEN_DURATION);
 		Open = false;
+        gatesText.text = "closed";
 
         StartCoroutine(displayMessages (Script.gatesClose));
 		StartCoroutine (cooldown ());

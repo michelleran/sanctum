@@ -13,6 +13,7 @@ public class Sanctum : MonoBehaviour {
 
 	public Text populationText;
 	public Text pointsText;
+    public Text pointsRateText;
 
 
 	// VARIABLES
@@ -32,6 +33,7 @@ public class Sanctum : MonoBehaviour {
         set {
             population = value;
             populationText.text = "population: " + population + "/" + capacity;
+            pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
         }
     }
 
@@ -50,8 +52,24 @@ public class Sanctum : MonoBehaviour {
 		}
 	}
 
-	public int pointsPerPerson = 5;
-	public float timeForPoints = 10f; // seconds between getting points
+	int pointsPerPerson = 5;
+    public int PointsPerPerson {
+        get { return pointsPerPerson; }
+        set {
+            pointsPerPerson = value;
+            pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
+        }
+    }
+
+	float timeForPoints = 10f; // seconds between getting points
+    public float TimeForPoints {
+        get { return timeForPoints; }
+        set {
+            timeForPoints = value;
+            pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
+        }
+    }
+
 	float timeSinceLastPoints = 0;
 
     public Dictionary<int, int> features = new Dictionary<int, int>();
@@ -94,8 +112,8 @@ public class Sanctum : MonoBehaviour {
         features[type] += 1;
 
         Capacity += catalog.capacityEffects[type];
-        pointsPerPerson += catalog.pointsPerPersonEffects[type];
-        timeForPoints += catalog.timeForPointsEffects[type];
+        PointsPerPerson += catalog.pointsPerPersonEffects[type];
+        TimeForPoints += catalog.timeForPointsEffects[type];
         Points -= catalog.costs[type];
 
         // double cost

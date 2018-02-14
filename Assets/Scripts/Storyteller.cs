@@ -30,7 +30,7 @@ public class Storyteller : MonoBehaviour {
     public Catalog catalog;
 
     public Image topDisplay;
-    public Image featuresDisplay;
+    public ScrollRect featuresDisplay;
 
 	public Text storyText;
     public Text gatesText;
@@ -38,9 +38,7 @@ public class Storyteller : MonoBehaviour {
 	public Text pointsText;
     public Text pointsRateText;
 
-    public Text housesText;
     public Text housesAmountText;
-    public Text flowersText;
     public Text flowersAmountText;
 
 	public Button raiseGatesButton;
@@ -126,8 +124,9 @@ public class Storyteller : MonoBehaviour {
 
         // introduce features display
         StartCoroutine (toggleOption (featuresDisplay.gameObject, true));
-        StartCoroutine (toggleOption (housesText.gameObject, true));
-        StartCoroutine (toggleOption (housesAmountText.gameObject, true));
+        //StartCoroutine (toggleOption (housesText.gameObject, true));
+        //StartCoroutine (toggleOption (housesAmountText.gameObject, true));
+        StartCoroutine (toggleOption (catalog.displays[(int)Catalog.Feature.House], true));
 
         // finish tutorial script
         StartCoroutine (displayMessages (Script.tutorialD)) ;
@@ -189,8 +188,9 @@ public class Storyteller : MonoBehaviour {
         catalog.buttons[type].onClick.AddListener(listener);
 
         if (!isTutorial) {
-            catalog.labels[type].gameObject.SetActive(true);
-            catalog.amounts[type].gameObject.SetActive(true); 
+            catalog.displays[type].SetActive(true);
+            //catalog.labels[type].gameObject.SetActive(true);
+            //catalog.amounts[type].gameObject.SetActive(true); 
         }
 
         // TODO: features won't necessarily be unlocked in the order the texts are placed, though... 

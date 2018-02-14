@@ -33,10 +33,11 @@ public class Storyteller : MonoBehaviour {
     public ScrollRect featuresDisplay;
 
 	public Text storyText;
-    public Text gatesText;
-	public Text populationText;
-	public Text pointsText;
-    public Text pointsRateText;
+    public Text gatesStatusText;
+    //public Text gatesText;
+	//public Text populationText;
+	//public Text pointsText;
+    //public Text pointsRateText;
 
     public Text housesAmountText;
     public Text flowersAmountText;
@@ -103,10 +104,10 @@ public class Storyteller : MonoBehaviour {
 
         StartCoroutine( toggleOption (topDisplay.gameObject, true));
 
-        StartCoroutine (toggleOption (gatesText.gameObject, true));
-		StartCoroutine (toggleOption (populationText.gameObject, true));
-		StartCoroutine (toggleOption (pointsText.gameObject, true));
-        StartCoroutine (toggleOption (pointsRateText.gameObject, true));
+        //StartCoroutine (toggleOption (gatesText.gameObject, true));
+		//StartCoroutine (toggleOption (populationText.gameObject, true));
+		//StartCoroutine (toggleOption (pointsText.gameObject, true));
+        //StartCoroutine (toggleOption (pointsRateText.gameObject, true));
 
         sanctum.addResident(new Person());
         sanctum.Points = 50;
@@ -131,7 +132,7 @@ public class Storyteller : MonoBehaviour {
         // finish tutorial script
         StartCoroutine (displayMessages (Script.tutorialD)) ;
 
-        gatesText.text = "closed";
+        gatesStatusText.text = "closed";
 
         // begin gates cooldown - had previously been deferred
 		StartCoroutine (cooldown ());
@@ -350,7 +351,7 @@ public class Storyteller : MonoBehaviour {
         cooldownIndicator.fillAmount = 1.0f;
 		Open = true;
 		openGatesButton.interactable = false;
-        gatesText.text = "open";
+        gatesStatusText.text = "open";
 
         StartCoroutine (displayMessages (Script.gatesOpen));
 		StartCoroutine (countDownToClose ());
@@ -359,7 +360,7 @@ public class Storyteller : MonoBehaviour {
 	IEnumerator countDownToClose() {
 		yield return new WaitForSeconds (GATE_OPEN_DURATION);
 		Open = false;
-        gatesText.text = "closed";
+        gatesStatusText.text = "closed";
 
         StartCoroutine(displayMessages (Script.gatesClose));
 		StartCoroutine (cooldown ());

@@ -11,9 +11,11 @@ public class Sanctum : MonoBehaviour {
     public Maestro maestro;
     public Catalog catalog;
 
-	public Text populationText;
-	public Text pointsText;
+    //public Text populationText;
+    //public Text pointsText;
+    public Text pointsAmountText;
     public Text pointsRateText;
+    public Text populationAmountText;
 
 
 	// VARIABLES
@@ -23,7 +25,7 @@ public class Sanctum : MonoBehaviour {
 		get { return capacity; }
 		set {
 			capacity = value;
-			populationText.text = "population: " + population + "/" + capacity;
+			populationAmountText.text = population + "/" + capacity;
 		}
 	}
 		
@@ -32,7 +34,7 @@ public class Sanctum : MonoBehaviour {
         get { return population; }
         set {
             population = value;
-            populationText.text = "population: " + population + "/" + capacity;
+            populationAmountText.text = population + "/" + capacity;
             pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
         }
     }
@@ -44,7 +46,7 @@ public class Sanctum : MonoBehaviour {
 		get { return points; }
 		set {
 			points = value;
-			pointsText.text = "points: " + points;
+			pointsAmountText.text = "" + points;
 
             foreach (KeyValuePair<int, int> pair in features) {
                 storyteller.toggleAvailability(pair.Key, catalog.costs[pair.Key] <= points);

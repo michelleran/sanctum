@@ -36,7 +36,5 @@ public class Person {
         obj = new GameObject("Person");
         obj.AddComponent<AudioSource>();
         obj.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Audio/" + notes[note]);
-
-        // TODO: any other properties?
     }
 }

@@ -76,8 +76,6 @@ public class Sanctum : MonoBehaviour {
 
     public List<int> existingFeatures;
 
-    // TODO: a display to show what features there are
-
 	void Start () {
         existingFeatures = new List<int>();
 		Capacity = 1;

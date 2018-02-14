@@ -29,6 +29,9 @@ public class Storyteller : MonoBehaviour {
 	public Sanctum sanctum;
     public Catalog catalog;
 
+    public Image topDisplay;
+    public Image featuresDisplay;
+
 	public Text storyText;
     public Text gatesText;
 	public Text populationText;
@@ -80,9 +83,9 @@ public class Storyteller : MonoBehaviour {
 	}
 
 
-	//--- TUTORIAL ---//
+    //--- TUTORIAL ---//
 
-	void beginTutorial() {
+    void beginTutorial() {
         cooldownIndicator.fillAmount = 0f; // disable for tutorial
 		StartCoroutine (displayMessages (Script.tutorialA)) ;
 		StartCoroutine (toggleOption (raiseGatesButton.gameObject, true));
@@ -100,6 +103,8 @@ public class Storyteller : MonoBehaviour {
 		StartCoroutine (toggleButton (openGatesButton, false)); // no cooldown during tutorial
         StartCoroutine (displayMessages (Script.tutorialC)) ;
 
+        StartCoroutine( toggleOption (topDisplay.gameObject, true));
+
         StartCoroutine (toggleOption (gatesText.gameObject, true));
 		StartCoroutine (toggleOption (populationText.gameObject, true));
 		StartCoroutine (toggleOption (pointsText.gameObject, true));
@@ -108,7 +113,7 @@ public class Storyteller : MonoBehaviour {
         sanctum.addResident(new Person());
         sanctum.Points = 50;
 
-        StartCoroutine (unlockFeature((int)Catalog.Feature.House, raiseTutorialHouse));
+        StartCoroutine (unlockFeature((int)Catalog.Feature.House, raiseTutorialHouse, true));
 	}
 
 	void raiseTutorialHouse() {
@@ -120,6 +125,7 @@ public class Storyteller : MonoBehaviour {
         housesAmountText.text = "1";
 
         // introduce features display
+        StartCoroutine (toggleOption (featuresDisplay.gameObject, true));
         StartCoroutine (toggleOption (housesText.gameObject, true));
         StartCoroutine (toggleOption (housesAmountText.gameObject, true));
 
@@ -174,16 +180,21 @@ public class Storyteller : MonoBehaviour {
         }
     }
 
-    IEnumerator unlockFeature(int type, UnityEngine.Events.UnityAction listener) {
+    IEnumerator unlockFeature(int type, UnityEngine.Events.UnityAction listener, bool isTutorial=false) {
         while (isTellingStory)
             yield return new WaitForSeconds(0.5f);
 
         catalog.locked.Remove(type);
         catalog.buttons[type].gameObject.SetActive(true);
         catalog.buttons[type].onClick.AddListener(listener);
-        catalog.labels[type].gameObject.SetActive(true);
-        catalog.amounts[type].gameObject.SetActive(true); 
-        // TODO: features won't necessarily be unlocked in the order the texts are placed, though... maybe programmatically set position? keep track of vertical position of text for last unlocked feature?
+
+        if (!isTutorial) {
+            catalog.labels[type].gameObject.SetActive(true);
+            catalog.amounts[type].gameObject.SetActive(true); 
+        }
+
+        // TODO: features won't necessarily be unlocked in the order the texts are placed, though... 
+        // maybe programmatically set position? keep track of vertical position of text for last unlocked feature?
     }
 
 	IEnumerator toggleOption(GameObject option, bool active) {

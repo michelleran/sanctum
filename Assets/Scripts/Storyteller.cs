@@ -14,7 +14,7 @@ public class Storyteller : MonoBehaviour {
 
 	public const float EVENT_INTERVAL = 5f; // temp
     public const int EVENT_FACTOR = 10; // temp; larger = smaller likelihood of event
-    public const int ATTACK_FACTOR = 5; // temp
+    public const int ATTACK_FACTOR = 3; // temp
     public const int DEATH_FACTOR = 5; // temp
 
     public const float REQUEST_INTERVAL = 10f; // temp
@@ -242,6 +242,7 @@ public class Storyteller : MonoBehaviour {
             if (sanctum.Population > 0 && roll(ATTACK_FACTOR)) {
                 Debug.Log("monsters are gonna attack!");
                 // pick random people to kill
+                // TODO: alternatively, just shave off the 1st/last n residents where n is a random number
                 int killed = 0;
                 List<Person> residents = new List<Person>(sanctum.residents);
                 foreach (Person person in residents) {

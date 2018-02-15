@@ -9,7 +9,7 @@ public class Catalog : MonoBehaviour
     
     public enum Feature { House, Flowers }; // TODO: more
 
-    public GameObject housesDisplay;
+    /*public GameObject housesDisplay;
     public GameObject flowersDisplay;
 
     public Button raiseHouseButton;
@@ -19,7 +19,9 @@ public class Catalog : MonoBehaviour
     public Text flowersText;
 
     public Text housesAmountText;
-    public Text flowersAmountText;
+    public Text flowersAmountText;*/
+
+    public Stage stage;
 
     public GameObject[] displays;
     public Button[] buttons;
@@ -56,23 +58,23 @@ public class Catalog : MonoBehaviour
 
     private void Start() {
         displays = new GameObject[]{
-            housesDisplay,
-            flowersDisplay
+            stage.housesDisplay,
+            stage.flowersDisplay
         };
 
         buttons = new Button[]{
-            raiseHouseButton,
-            raiseFlowersButton
+            stage.raiseHouseButton,
+            stage.raiseFlowersButton
         };
 
         labels = new Text[]{
-            housesText,
-            flowersText
+            stage.housesText,
+            stage.flowersText
         };
 
         amounts = new Text[]{
-            housesAmountText,
-            flowersAmountText
+            stage.housesAmountText,
+            stage.flowersAmountText
         };
 
         locked = new List<int>();

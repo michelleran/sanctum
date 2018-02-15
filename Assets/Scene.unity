@@ -1377,9 +1377,10 @@ GameObject:
   - component: {fileID: 1052490155}
   - component: {fileID: 1052490154}
   - component: {fileID: 1052490159}
+  - component: {fileID: 1052490163}
   - component: {fileID: 1052490160}
-  - component: {fileID: 1052490161}
   - component: {fileID: 1052490162}
+  - component: {fileID: 1052490161}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1468,12 +1469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb753fce5d03485295de270b22f0c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storyteller: {fileID: 1052490160}
-  maestro: {fileID: 1052490161}
-  catalog: {fileID: 1052490162}
-  pointsAmountText: {fileID: 1443774481}
-  pointsRateText: {fileID: 1185484562}
-  populationAmountText: {fileID: 931036573}
   existingFeatures: 
 --- !u!114 &1052490160
 MonoBehaviour:
@@ -1487,16 +1482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanctum: {fileID: 1052490159}
+  stage: {fileID: 1052490163}
   catalog: {fileID: 1052490162}
-  topDisplay: {fileID: 1706706620}
-  featuresDisplay: {fileID: 1955460692}
-  storyText: {fileID: 362271120}
-  gatesStatusText: {fileID: 2097264685}
-  housesAmountText: {fileID: 1365420487}
-  flowersAmountText: {fileID: 234846332}
-  raiseGatesButton: {fileID: 483483566}
-  openGatesButton: {fileID: 489334944}
-  cooldownIndicator: {fileID: 1869872640}
 --- !u!114 &1052490161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,14 +1507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f6ff0827ae845b48850c7acfc1740f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  housesDisplay: {fileID: 1073274383}
-  flowersDisplay: {fileID: 300054681}
-  raiseHouseButton: {fileID: 1179767145}
-  raiseFlowersButton: {fileID: 62264778}
-  housesText: {fileID: 1160406803}
-  flowersText: {fileID: 1460820828}
-  housesAmountText: {fileID: 1365420487}
-  flowersAmountText: {fileID: 234846332}
+  stage: {fileID: 1052490163}
   displays: []
   buttons: []
   labels: []
@@ -1537,6 +1517,35 @@ MonoBehaviour:
   pointsPerPersonEffects: 0000000003000000
   timeForPointsEffects: 0000000000000000
   locked: 
+--- !u!114 &1052490163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052490153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8fff4764cdc54097a5fbc2cc128a528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyText: {fileID: 362271120}
+  topDisplay: {fileID: 1706706620}
+  gatesStatusText: {fileID: 2097264685}
+  pointsAmountText: {fileID: 1443774481}
+  pointsRateText: {fileID: 1185484562}
+  populationAmountText: {fileID: 931036573}
+  featuresDisplay: {fileID: 1955460692}
+  housesDisplay: {fileID: 1073274383}
+  flowersDisplay: {fileID: 300054681}
+  housesText: {fileID: 1160406803}
+  flowersText: {fileID: 1460820828}
+  housesAmountText: {fileID: 1365420487}
+  flowersAmountText: {fileID: 234846332}
+  raiseGatesButton: {fileID: 483483566}
+  openGatesButton: {fileID: 489334944}
+  cooldownIndicator: {fileID: 1869872640}
+  raiseHouseButton: {fileID: 1179767145}
+  raiseFlowersButton: {fileID: 62264778}
 --- !u!1 &1073274383
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,18 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Sanctum : MonoBehaviour {
-    
+
     // REFERENCES
 
-    public Storyteller storyteller;
-    public Maestro maestro;
-    public Catalog catalog;
+    Stage stage;
+    Storyteller storyteller;
+    Maestro maestro;
+    Catalog catalog;
 
-    //public Text populationText;
-    //public Text pointsText;
-    public Text pointsAmountText;
+    /*public Text pointsAmountText;
     public Text pointsRateText;
-    public Text populationAmountText;
+    public Text populationAmountText;*/
 
 
 	// VARIABLES
@@ -25,7 +24,7 @@ public class Sanctum : MonoBehaviour {
 		get { return capacity; }
 		set {
 			capacity = value;
-			populationAmountText.text = population + "/" + capacity;
+			stage.populationAmountText.text = population + "/" + capacity;
 		}
 	}
 		
@@ -34,8 +33,8 @@ public class Sanctum : MonoBehaviour {
         get { return population; }
         set {
             population = value;
-            populationAmountText.text = population + "/" + capacity;
-            pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
+            stage.populationAmountText.text = population + "/" + capacity;
+            stage.pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
         }
     }
 
@@ -46,7 +45,7 @@ public class Sanctum : MonoBehaviour {
 		get { return points; }
 		set {
 			points = value;
-			pointsAmountText.text = "" + points;
+			stage.pointsAmountText.text = "" + points;
 
             foreach (KeyValuePair<int, int> pair in features) {
                 storyteller.toggleAvailability(pair.Key, catalog.costs[pair.Key] <= points);
@@ -59,7 +58,7 @@ public class Sanctum : MonoBehaviour {
         get { return pointsPerPerson; }
         set {
             pointsPerPerson = value;
-            pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
+            stage.pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
         }
     }
 
@@ -68,7 +67,7 @@ public class Sanctum : MonoBehaviour {
         get { return timeForPoints; }
         set {
             timeForPoints = value;
-            pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
+            stage.pointsRateText.text = "+ " + (pointsPerPerson * population) + "/" + timeForPoints + " sec";
         }
     }
 
@@ -79,6 +78,11 @@ public class Sanctum : MonoBehaviour {
     public List<int> existingFeatures;
 
 	void Start () {
+        stage = this.gameObject.GetComponent<Stage>();
+        storyteller = this.gameObject.GetComponent<Storyteller>();
+        maestro = this.gameObject.GetComponent<Maestro>();
+        catalog = this.gameObject.GetComponent<Catalog>();
+
         existingFeatures = new List<int>();
 		Capacity = 1;
         Population = 0;

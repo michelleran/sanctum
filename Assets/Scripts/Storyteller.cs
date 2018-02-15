@@ -27,13 +27,13 @@ public class Storyteller : MonoBehaviour {
 	// REFERENCES
 
 	public Sanctum sanctum;
+    public Stage stage;
     public Catalog catalog;
 
-    public Image topDisplay;
+    /*public Image topDisplay;
     public ScrollRect featuresDisplay;
 
 	public Text storyText;
-    RectTransform storyRect;
 
     public Text gatesStatusText;
 
@@ -43,7 +43,9 @@ public class Storyteller : MonoBehaviour {
 	public Button raiseGatesButton;
 	public Button openGatesButton;
 
-    public Image cooldownIndicator;
+    public Image cooldownIndicator;*/
+
+    RectTransform storyRect;
 
 
 	// VARIABLES
@@ -68,15 +70,15 @@ public class Storyteller : MonoBehaviour {
 	//--- SYSTEM FUNCTIONS ---//
 
 	void Start () {
-        storyRect = storyText.GetComponent<RectTransform>();
+        storyRect = stage.storyText.GetComponent<RectTransform>();
 		beginTutorial ();
 	}
 
 	void Update () {
         if (Open) {
-            cooldownIndicator.fillAmount -= Time.deltaTime / GATE_OPEN_DURATION;
+            stage.cooldownIndicator.fillAmount -= Time.deltaTime / GATE_OPEN_DURATION;
         } else if (isCoolingDown) {
-            cooldownIndicator.fillAmount -= Time.deltaTime / GATE_COOLDOWN;
+            stage.cooldownIndicator.fillAmount -= Time.deltaTime / GATE_COOLDOWN;
         }
 	}
 
@@ -84,24 +86,24 @@ public class Storyteller : MonoBehaviour {
     //--- TUTORIAL ---//
 
     void beginTutorial() {
-        cooldownIndicator.fillAmount = 0f; // disable for tutorial
+        stage.cooldownIndicator.fillAmount = 0f; // disable for tutorial
 		StartCoroutine (displayMessages (Script.tutorialA)) ;
-		StartCoroutine (toggleOption (raiseGatesButton.gameObject, true));
-		raiseGatesButton.onClick.AddListener (raiseGates);
+		StartCoroutine (toggleOption (stage.raiseGatesButton.gameObject, true));
+		stage.raiseGatesButton.onClick.AddListener (raiseGates);
 	}
 
 	void raiseGates() {
-		StartCoroutine (toggleOption (raiseGatesButton.gameObject, false));
+		StartCoroutine (toggleOption (stage.raiseGatesButton.gameObject, false));
         StartCoroutine (displayMessages (Script.tutorialB)) ;
-		StartCoroutine (toggleOption (openGatesButton.gameObject, true));
-		openGatesButton.onClick.AddListener (openTutorialGates); // later, will assign proper listener
+		StartCoroutine (toggleOption (stage.openGatesButton.gameObject, true));
+		stage.openGatesButton.onClick.AddListener (openTutorialGates); // later, will assign proper listener
 	}
 
 	void openTutorialGates() {
-		StartCoroutine (toggleButton (openGatesButton, false)); // no cooldown during tutorial
+		StartCoroutine (toggleButton (stage.openGatesButton, false)); // no cooldown during tutorial
         StartCoroutine (displayMessages (Script.tutorialC)) ;
 
-        StartCoroutine( toggleOption (topDisplay.gameObject, true));
+        StartCoroutine( toggleOption (stage.topDisplay.gameObject, true));
 
         sanctum.addResident(new Person());
         sanctum.Points = 50;
@@ -115,25 +117,25 @@ public class Storyteller : MonoBehaviour {
         sanctum.existingFeatures.Add((int)Catalog.Feature.House);
         sanctum.Capacity += 4; // tutorial house is different from normal
         sanctum.Points -= 25;
-        housesAmountText.text = "1";
+        stage.housesAmountText.text = "1";
 
         // introduce features display
-        StartCoroutine (toggleOption (featuresDisplay.gameObject, true));
+        StartCoroutine (toggleOption (stage.featuresDisplay.gameObject, true));
         StartCoroutine (toggleOption (catalog.displays[(int)Catalog.Feature.House], true));
 
         // finish tutorial script
         StartCoroutine (displayMessages (Script.tutorialD)) ;
 
-        gatesStatusText.text = "closed";
+        stage.gatesStatusText.text = "closed";
 
         // begin gates cooldown - had previously been deferred
 		StartCoroutine (cooldown ());
 
 		// tutorial is finished now, so prepare for proper gameplay...
-		openGatesButton.onClick.RemoveAllListeners ();
+		stage.openGatesButton.onClick.RemoveAllListeners ();
         catalog.buttons[(int)Catalog.Feature.House].onClick.RemoveAllListeners ();
 
-		openGatesButton.onClick.AddListener (openGates);
+		stage.openGatesButton.onClick.AddListener (openGates);
         catalog.buttons[(int)Catalog.Feature.House].onClick.AddListener (raiseHouse);
 
         // begin creating events
@@ -151,7 +153,7 @@ public class Storyteller : MonoBehaviour {
 
 		isTellingStory = true;
 		foreach (string message in messages) {
-            storyText.text = "\n" + message + "\n" + storyText.text;
+            stage.storyText.text = "\n" + message + "\n" + stage.storyText.text;
             yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
 		}
 
@@ -336,10 +338,10 @@ public class Storyteller : MonoBehaviour {
 	//--- LISTENERS ---//
 
 	void openGates() {
-        cooldownIndicator.fillAmount = 1.0f;
+        stage.cooldownIndicator.fillAmount = 1.0f;
 		Open = true;
-		openGatesButton.interactable = false;
-        gatesStatusText.text = "open";
+		stage.openGatesButton.interactable = false;
+        stage.gatesStatusText.text = "open";
 
         StartCoroutine (displayMessages (Script.gatesOpen));
 		StartCoroutine (countDownToClose ());
@@ -348,19 +350,19 @@ public class Storyteller : MonoBehaviour {
 	IEnumerator countDownToClose() {
 		yield return new WaitForSeconds (GATE_OPEN_DURATION);
 		Open = false;
-        gatesStatusText.text = "closed";
+        stage.gatesStatusText.text = "closed";
 
         StartCoroutine(displayMessages (Script.gatesClose));
 		StartCoroutine (cooldown ());
 	}
 
 	IEnumerator cooldown() {
-        cooldownIndicator.fillAmount = 1.0f;
+        stage.cooldownIndicator.fillAmount = 1.0f;
         isCoolingDown = true;
 
 		yield return new WaitForSeconds (GATE_COOLDOWN);
 
-		openGatesButton.interactable = true;
+		stage.openGatesButton.interactable = true;
         isCoolingDown = false;
 	}
 

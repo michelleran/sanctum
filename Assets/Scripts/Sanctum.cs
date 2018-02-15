@@ -101,7 +101,6 @@ public class Sanctum : MonoBehaviour {
     public void addResident(Person person) {
         residents.Add(person);
         Population += 1;
-        //maestro.conduct(person);
     }
 
     public string addFeature(int type) {

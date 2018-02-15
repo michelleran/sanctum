@@ -34,10 +34,6 @@ public class Storyteller : MonoBehaviour {
 
 	public Text storyText;
     public Text gatesStatusText;
-    //public Text gatesText;
-	//public Text populationText;
-	//public Text pointsText;
-    //public Text pointsRateText;
 
     public Text housesAmountText;
     public Text flowersAmountText;
@@ -104,11 +100,6 @@ public class Storyteller : MonoBehaviour {
 
         StartCoroutine( toggleOption (topDisplay.gameObject, true));
 
-        //StartCoroutine (toggleOption (gatesText.gameObject, true));
-		//StartCoroutine (toggleOption (populationText.gameObject, true));
-		//StartCoroutine (toggleOption (pointsText.gameObject, true));
-        //StartCoroutine (toggleOption (pointsRateText.gameObject, true));
-
         sanctum.addResident(new Person());
         sanctum.Points = 50;
 
@@ -125,8 +116,6 @@ public class Storyteller : MonoBehaviour {
 
         // introduce features display
         StartCoroutine (toggleOption (featuresDisplay.gameObject, true));
-        //StartCoroutine (toggleOption (housesText.gameObject, true));
-        //StartCoroutine (toggleOption (housesAmountText.gameObject, true));
         StartCoroutine (toggleOption (catalog.displays[(int)Catalog.Feature.House], true));
 
         // finish tutorial script
@@ -159,8 +148,9 @@ public class Storyteller : MonoBehaviour {
 
 		isTellingStory = true;
 		foreach (string message in messages) {
-            storyText.text = message + "\n\n" + storyText.text; // TODO: tried changing it to append text at bottom but text doesn't move up?
-			yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
+            storyText.text = message + "\n\n" + storyText.text; 
+            // TODO: no \n\n if 1st line; make older lines disappear at top
+            yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
 		}
 		isTellingStory = false;
 	}
@@ -190,12 +180,7 @@ public class Storyteller : MonoBehaviour {
 
         if (!isTutorial) {
             catalog.displays[type].SetActive(true);
-            //catalog.labels[type].gameObject.SetActive(true);
-            //catalog.amounts[type].gameObject.SetActive(true); 
         }
-
-        // TODO: features won't necessarily be unlocked in the order the texts are placed, though... 
-        // maybe programmatically set position? keep track of vertical position of text for last unlocked feature?
     }
 
 	IEnumerator toggleOption(GameObject option, bool active) {
@@ -377,7 +362,6 @@ public class Storyteller : MonoBehaviour {
 	}
 
 	void raiseHouse() {
-        // TODO: encountered a bug where the raisehousebutton wasn't responding after i'd raised 2 houses?
         string message = sanctum.addFeature ((int)Catalog.Feature.House);
         StartCoroutine (displayMessages (new string[] { message }));
 	}

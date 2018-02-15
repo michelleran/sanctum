@@ -23,15 +23,6 @@ public class Maestro : MonoBehaviour {
                     longest = person.interval;
                 }
 
-                /*yield return new WaitForSeconds(person.interval);
-
-                if (person.IsAlive && person.obj != null) {
-                    person.obj.GetComponent<AudioSource>().Play();
-                    Debug.Log("playing a note lala: " + person.note + " @ " + person.interval);
-                }*/
-
-                //yield return StartCoroutine(play(person)); // hm, same as above...
-
                 StartCoroutine(play(person));
             }
 

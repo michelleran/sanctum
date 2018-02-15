@@ -33,6 +33,8 @@ public class Storyteller : MonoBehaviour {
     public ScrollRect featuresDisplay;
 
 	public Text storyText;
+    RectTransform storyRect;
+
     public Text gatesStatusText;
 
     public Text housesAmountText;
@@ -66,6 +68,7 @@ public class Storyteller : MonoBehaviour {
 	//--- SYSTEM FUNCTIONS ---//
 
 	void Start () {
+        storyRect = storyText.GetComponent<RectTransform>();
 		beginTutorial ();
 	}
 
@@ -148,10 +151,17 @@ public class Storyteller : MonoBehaviour {
 
 		isTellingStory = true;
 		foreach (string message in messages) {
-            storyText.text = message + "\n\n" + storyText.text; 
-            // TODO: no \n\n if 1st line; make older lines disappear at top
+            storyText.text = "\n" + message + "\n" + storyText.text;
+            //storyText.text += "\n" + message + "\n";
+            // TODO: no \n\n if first message
+
+            //float deltaHeight = storyText.preferredHeight - storyRect.rect.height;
+            //storyRect.sizeDelta = new Vector2 (storyRect.rect.width, storyText.preferredHeight);
+            //storyRect.position = new Vector2 (storyRect.position.x, storyRect.position.y-(deltaHeight/2));
+
             yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
 		}
+
 		isTellingStory = false;
 	}
 

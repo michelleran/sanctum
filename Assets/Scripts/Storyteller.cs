@@ -7,15 +7,15 @@ public class Storyteller : MonoBehaviour {
 
 	// CONSTANTS
 
-	public const float SECONDS_BETWEEN_MESSAGES = 0.5f; // short for testing purposes
+	public const float SECONDS_BETWEEN_MESSAGES = 1.0f;
 
-	public const float GATE_OPEN_DURATION = 20f; // temp
-	public const float GATE_COOLDOWN = 4f; // temp
+	public const float GATE_OPEN_DURATION = 30f;
+	public const float GATE_COOLDOWN = 20f;
 
-	public const float EVENT_INTERVAL = 5f; // temp
+	public const float EVENT_INTERVAL = 10f;
 
-    public const int MIN_EVENT_FACTOR = 5; // temp
-    int _EVENT_FACTOR = 10; // temp; larger = smaller likelihood of event
+    public const int MIN_EVENT_FACTOR = 3;
+    int _EVENT_FACTOR = 7;
     public int EVENT_FACTOR {
         get { return _EVENT_FACTOR; }
         set {
@@ -27,12 +27,11 @@ public class Storyteller : MonoBehaviour {
         }
     }
 
-    public const int MAX_ATTACK_FACTOR = 10; // temp
+    public const int MAX_ATTACK_FACTOR = 7; // temp
     int _ATTACK_FACTOR = 3; // temp
     public int ATTACK_FACTOR {
         get { return _ATTACK_FACTOR; }
         set {
-            Debug.Log("new attack factor: " + value);
             _ATTACK_FACTOR = value;
             if (_ATTACK_FACTOR >= MAX_ATTACK_FACTOR) {
                 stage.raiseShrinesButton.interactable = false;
@@ -42,10 +41,10 @@ public class Storyteller : MonoBehaviour {
 
     public const int DEATH_FACTOR = 5; // temp
 
-    public const float REQUEST_INTERVAL = 10f; // temp
+    public const float REQUEST_INTERVAL = 30f; // temp
     public const int REQUEST_FACTOR = 3; // temp
 
-    public const float OBSERVANCE_INTERVAL = 20f; // temp
+    public const float OBSERVANCE_INTERVAL = 30f; // temp
     public const int OBSERVANCE_FACTOR = 5; // temp
 
 
@@ -365,12 +364,6 @@ public class Storyteller : MonoBehaviour {
             int killed = Random.Range(1, sanctum.Population);
             for (int i = 0; i < killed; i++)
                 sanctum.killResident();
-
-            // pick random message
-            //string casualtiesMessage = pickRandomMessage(Script.casualties);
-            //casualtiesMessage = casualtiesMessage.Replace("#", "" + killed);
-
-            //StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
 
             StartCoroutine (displayMessages (pickRandomMessage(Script.attack)));
 

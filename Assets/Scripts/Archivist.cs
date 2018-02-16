@@ -25,6 +25,8 @@ public class Archivist : MonoBehaviour {
         FileStream file = File.Create(Application.persistentDataPath + "/record.gd");
         bf.Serialize(file, record);
         file.Close();
+
+        Debug.Log(Application.persistentDataPath);
     }
 
     public bool saveExists() {

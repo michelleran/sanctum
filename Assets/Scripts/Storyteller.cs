@@ -39,13 +39,6 @@ public class Storyteller : MonoBehaviour {
     bool isCoolingDown = false; // this refers to gate cooldown before can open again
 
     int waitingRefugees = 0;
-    int WaitingRefugees { // for debugging purposes
-        get { return waitingRefugees; }
-        set {
-            waitingRefugees = value;
-            Debug.Log("setting waiting to " + value);
-        }
-    }
 
 	bool open = false;
     bool Open {
@@ -55,7 +48,7 @@ public class Storyteller : MonoBehaviour {
 
             if (open) {
                 for (int i = 0; i < waitingRefugees; i++) { sanctum.addResident(new Person()); }
-                WaitingRefugees = 0;
+                waitingRefugees = 0;
                 stage.gatesStatusText.text = "open";
             } else {
                 stage.gatesStatusText.text = "closed";
@@ -84,10 +77,8 @@ public class Storyteller : MonoBehaviour {
 	}
 
     private void OnApplicationQuit() {
-        if (didFinishTutorial) // implies player finished tutorial
+        if (didFinishTutorial)
             archivist.save(open, waitingRefugees);
-
-        Debug.Log("waiting: " + waitingRefugees);
     }
 
 
@@ -243,7 +234,7 @@ public class Storyteller : MonoBehaviour {
         stage.storyText.text = record.story;
 
         // restore waiting refugees
-        WaitingRefugees = record.waitingRefugees;
+        waitingRefugees = record.waitingRefugees;
 
         // activate gates button & restore gates status
         Open = record.open;
@@ -275,7 +266,6 @@ public class Storyteller : MonoBehaviour {
         // now resume normal gameplay
         stage.openGatesButton.interactable = false;
         stage.openGatesButton.onClick.AddListener(openGates);
-        //StartCoroutine (cooldown ());
 
         InvokeRepeating ("createEvent", EVENT_INTERVAL, EVENT_INTERVAL);
         InvokeRepeating ("createRequest", REQUEST_INTERVAL, REQUEST_INTERVAL);
@@ -368,7 +358,7 @@ public class Storyteller : MonoBehaviour {
 
             if (Open) {
                 for (int i = 0; i < waitingRefugees; i++) { sanctum.addResident(new Person()); }
-                WaitingRefugees = 0;
+                waitingRefugees = 0;
             }
 
             return;
@@ -423,8 +413,6 @@ public class Storyteller : MonoBehaviour {
 	//--- LISTENERS ---//
 
 	void openGates() {
-        Debug.Log("waiting? " + waitingRefugees);
-
         stage.cooldownIndicator.fillAmount = 1.0f;
 		Open = true;
 		stage.openGatesButton.interactable = false;

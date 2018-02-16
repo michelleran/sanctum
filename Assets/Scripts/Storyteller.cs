@@ -474,22 +474,22 @@ public class Storyteller : MonoBehaviour {
 	}
 
 	void raiseHouse() {
-        string message = sanctum.addFeature ((int)Catalog.Feature.House);
-        StartCoroutine (displayMessages (message));
+        sanctum.addFeature ((int)Catalog.Feature.House);
+        StartCoroutine (displayMessages (pickRandomMessage(Script.house)));
 	}
 
     void raiseFlowers() {
-        string message = sanctum.addFeature ((int)Catalog.Feature.Flowers);
-        StartCoroutine (displayMessages (message));
+        sanctum.addFeature ((int)Catalog.Feature.Flowers);
+        StartCoroutine (displayMessages (pickRandomMessage(Script.flowers)));
     }
 
     void raiseShrine() {
-        string message = sanctum.addFeature ((int)Catalog.Feature.Shrine);
-        StartCoroutine (displayMessages (message));
+        sanctum.addFeature ((int)Catalog.Feature.Shrine);
+        StartCoroutine (displayMessages (pickRandomMessage(Script.shrine)));
     }
 
     void raiseBeacon() {
-        string message = sanctum.addFeature ((int)Catalog.Feature.Beacon);
-        StartCoroutine (displayMessages (message));
+        sanctum.addFeature ((int)Catalog.Feature.Beacon);
+        StartCoroutine (displayMessages (pickRandomMessage(Script.beacon)));
     }
 }

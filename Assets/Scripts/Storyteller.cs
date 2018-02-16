@@ -310,7 +310,7 @@ public class Storyteller : MonoBehaviour {
 
         // in order of priority...
 
-        if (Open && sanctum.Population > 0 && roll(ATTACK_FACTOR)) {
+        if (Open && sanctum.Population > 1 && roll(ATTACK_FACTOR)) {
             // pick random # of people to kill
             int killed = Random.Range(1, sanctum.Population);
             for (int i = 0; i < killed; i++)
@@ -324,7 +324,7 @@ public class Storyteller : MonoBehaviour {
 
             return;
 
-        } else if (sanctum.Population > 0 && roll(DEATH_FACTOR)) {
+        } else if (sanctum.Population > 1 && roll(DEATH_FACTOR)) {
             StartCoroutine(displayMessages(sanctum.killResident() + pickRandomMessage(Script.peacefulDeath)));
             return;
         }

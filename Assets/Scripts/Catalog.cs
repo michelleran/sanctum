@@ -22,21 +22,6 @@ public class Catalog : MonoBehaviour
         30 // flowers
     };
 
-    public int[] capacityEffects = {
-        5, // house
-        0 // flowers
-    };
-
-    public int[] pointsPerPersonEffects = {
-        0, // house
-        3 // flowers
-    };
-
-    public int[] timeForPointsEffects = {
-        0, // house
-        0 // flowers
-    };
-
     public string[][] possibleMessages = {
         Script.house,
         Script.flowers

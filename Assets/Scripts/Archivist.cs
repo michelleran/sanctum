@@ -33,6 +33,8 @@ public class Archivist : MonoBehaviour {
         Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/record.gd", FileMode.Open);
-        return (Record)bf.Deserialize(file);
+        Record record = (Record)bf.Deserialize(file);
+        file.Close();
+        return record;
     }
 }

@@ -121,9 +121,18 @@ public class Sanctum : MonoBehaviour {
 
         features[type] += 1;
 
-        Capacity += catalog.capacityEffects[type];
+        switch (type) {
+            case (int)Catalog.Feature.House:
+                Capacity += 5;
+                break;
+            case (int)Catalog.Feature.Flowers:
+                PointsPerPerson += 3;
+                break;
+        }
+
+        /*Capacity += catalog.capacityEffects[type];
         PointsPerPerson += catalog.pointsPerPersonEffects[type];
-        TimeForPoints += catalog.timeForPointsEffects[type];
+        TimeForPoints += catalog.timeForPointsEffects[type];*/
         Points -= catalog.costs[type];
 
         // double cost

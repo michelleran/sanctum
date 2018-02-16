@@ -305,38 +305,43 @@ public class Storyteller : MonoBehaviour {
          *      - if gate is closed: some may die
          *  - monsters attack
          *      - only if gate is open
+         *  - a resident peacefully passes away
          */
 
         // in order of priority...
 
-        if (Open) {
-            // monsters may or may not attack
-            if (sanctum.Population > 0 && roll(ATTACK_FACTOR)) {
-                Debug.Log("monsters are gonna attack!");
-                // pick random people to kill
-                // TODO: alternatively, just shave off the 1st/last n residents where n is a random number
-                int killed = 0;
-                List<Person> residents = new List<Person>(sanctum.residents);
-                foreach (Person person in residents) {
-                    if (person.IsAlive && roll(DEATH_FACTOR)) {
-                        person.IsAlive = false; // TODO: make a killResident function?
-                        sanctum.residents.Remove(person);
-                        killed++;
-                    }
-                } // TODO: problem: no one might die...
+        if (Open && sanctum.Population > 0 && roll(ATTACK_FACTOR)) {
+            // pick random people to kill
+            // TODO: alternatively, just shave off the 1st/last n residents where n is a random number
+            int killed = 0;
+            List<Person> residents = new List<Person>(sanctum.residents);
+            foreach (Person person in residents) {
+                if (person.IsAlive && roll(DEATH_FACTOR)) {
+                    person.IsAlive = false; // TODO: make a killResident
+                    sanctum.residents.Remove(person);
+                    killed++;
+                }
+            } // TODO: problem: no one might die...
 
-                sanctum.Population -= killed;
+            sanctum.Population -= killed;
 
-                // pick random message
-                //string attackMessage = Script.attack[Random.Range(0, Script.attack.Length)];
-                //string casualtiesMessage = Script.casualties[Random.Range(0, Script.casualties.Length)];
-                string casualtiesMessage = pickRandomMessage(Script.casualties);
-                casualtiesMessage = casualtiesMessage.Replace("#", "" + killed); // TODO: deal w/ plurals
+            // pick random message
+            string casualtiesMessage = pickRandomMessage(Script.casualties);
+            casualtiesMessage = casualtiesMessage.Replace("#", "" + killed); // TODO: deal w/ plurals
 
-                StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
+            StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
 
-                return;
-            }
+            return;
+        } else if (sanctum.Population > 0 && roll(DEATH_FACTOR)) {
+            // pick a random person to kill
+            Person person = sanctum.residents[Random.Range(0, sanctum.residents.Count)];
+            person.IsAlive = false;
+            sanctum.residents.Remove(person);
+            sanctum.Population--;
+
+            StartCoroutine(displayMessages(person.name + pickRandomMessage(Script.peacefulDeath)));
+
+            return;
         }
 
         if (!Open && waitingRefugees > 0) {

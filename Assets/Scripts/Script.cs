@@ -65,7 +65,7 @@ public class Script {
     };
 
     public static string[] peacefulDeath = {
-        " quietly passes away in the night"
+        " quietly passes away in the night."
     };
 
     public static string[] request = { // name will be appended

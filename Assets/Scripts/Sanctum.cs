@@ -47,7 +47,13 @@ public class Sanctum : MonoBehaviour {
 			stage.pointsAmountText.text = "" + points;
 
             foreach (int type in unlockedFeatures) {
-                storyteller.toggleAvailability(type, catalog.costs[type] <= points);
+                // if NOT a shrine & at shrine limit, and NOT a beacon & at beacon limit...
+                if (!(type == (int)Catalog.Feature.Shrine && storyteller.ATTACK_FACTOR >= Storyteller.MAX_ATTACK_FACTOR) &&
+                    !(type == (int)Catalog.Feature.Beacon && storyteller.EVENT_FACTOR >= Storyteller.MIN_EVENT_FACTOR)) {
+
+                    storyteller.toggleAvailability(type, catalog.costs[type] <= points);
+
+                }
             }
 		}
 	}

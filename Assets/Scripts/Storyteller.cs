@@ -14,23 +14,27 @@ public class Storyteller : MonoBehaviour {
 
 	public const float EVENT_INTERVAL = 5f; // temp
 
+    public const int MIN_EVENT_FACTOR = 5; // temp
     int _EVENT_FACTOR = 10; // temp; larger = smaller likelihood of event
     public int EVENT_FACTOR {
         get { return _EVENT_FACTOR; }
         set {
+            Debug.Log("new event factor: " + value);
             _EVENT_FACTOR = value;
-            if (_EVENT_FACTOR <= 5) { // min event factor; temp
+            if (_EVENT_FACTOR <= MIN_EVENT_FACTOR) { // min event factor; temp
                 stage.raiseBeaconsButton.interactable = false;
             }
         }
     }
 
+    public const int MAX_ATTACK_FACTOR = 10; // temp
     int _ATTACK_FACTOR = 3; // temp
     public int ATTACK_FACTOR {
         get { return _ATTACK_FACTOR; }
         set {
+            Debug.Log("new attack factor: " + value);
             _ATTACK_FACTOR = value;
-            if (_ATTACK_FACTOR >= 10) { // max attack factor; temp
+            if (_ATTACK_FACTOR >= MAX_ATTACK_FACTOR) {
                 stage.raiseShrinesButton.interactable = false;
             }
         }

@@ -84,7 +84,7 @@ public class Storyteller : MonoBehaviour {
 	//--- SYSTEM FUNCTIONS ---//
 
 	void Start () {
-        if (archivist.saveExists()) {
+        if (Application.platform != RuntimePlatform.WebGLPlayer && archivist.saveExists()) {
             didFinishTutorial = true;
             StartCoroutine (restore (archivist.load ()));
         } else {

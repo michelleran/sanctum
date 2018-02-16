@@ -11,6 +11,11 @@ public class Archivist : MonoBehaviour {
     public Catalog catalog;
 
     public void save(bool open, int waitingRefugees) {
+        if (Application.platform == RuntimePlatform.WebGLPlayer) {
+            Debug.Log("on webgl");
+            return;
+        }
+
         Record record = new Record(stage.storyText.text, sanctum.Population, sanctum.Capacity,
                                    sanctum.Points, sanctum.PointsPerPerson, sanctum.TimeForPoints,
                                    sanctum.residents.ToArray(), catalog.costs, 
@@ -30,9 +35,6 @@ public class Archivist : MonoBehaviour {
     }
 
     public bool saveExists() {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-            return false;
-
         return File.Exists(Application.persistentDataPath + "/record.gd");
     }
 

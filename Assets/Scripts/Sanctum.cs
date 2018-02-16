@@ -105,6 +105,15 @@ public class Sanctum : MonoBehaviour {
         Population += 1;
     }
 
+    public string killResident() {
+        // pick a random person to kill
+        Person person = residents[Random.Range(0, residents.Count)];
+        person.IsAlive = false;
+        residents.Remove(person);
+        Population--;
+        return person.name;
+    }
+
     public string addFeature(int type) {
 
         if (features[type] == 0)

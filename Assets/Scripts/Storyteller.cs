@@ -299,7 +299,7 @@ public class Storyteller : MonoBehaviour {
         if (!roll(EVENT_FACTOR))
             return;
 
-        /* possible events: (TODO: more?)
+        /* possible events:
          *  - refugees arrive
          *      - if gate is open: +population
          *      - if gate is closed: some may die
@@ -311,19 +311,10 @@ public class Storyteller : MonoBehaviour {
         // in order of priority...
 
         if (Open && sanctum.Population > 0 && roll(ATTACK_FACTOR)) {
-            // pick random people to kill
-            // TODO: alternatively, just shave off the 1st/last n residents where n is a random number
-            int killed = 0;
-            List<Person> residents = new List<Person>(sanctum.residents);
-            foreach (Person person in residents) {
-                if (person.IsAlive && roll(DEATH_FACTOR)) {
-                    person.IsAlive = false; // TODO: make a killResident
-                    sanctum.residents.Remove(person);
-                    killed++;
-                }
-            } // TODO: problem: no one might die...
-
-            sanctum.Population -= killed;
+            // pick random # of people to kill
+            int killed = Random.Range(1, sanctum.Population);
+            for (int i = 0; i < killed; i++)
+                sanctum.killResident();
 
             // pick random message
             string casualtiesMessage = pickRandomMessage(Script.casualties);
@@ -332,15 +323,9 @@ public class Storyteller : MonoBehaviour {
             StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
 
             return;
+
         } else if (sanctum.Population > 0 && roll(DEATH_FACTOR)) {
-            // pick a random person to kill
-            Person person = sanctum.residents[Random.Range(0, sanctum.residents.Count)];
-            person.IsAlive = false;
-            sanctum.residents.Remove(person);
-            sanctum.Population--;
-
-            StartCoroutine(displayMessages(person.name + pickRandomMessage(Script.peacefulDeath)));
-
+            StartCoroutine(displayMessages(sanctum.killResident() + pickRandomMessage(Script.peacefulDeath)));
             return;
         }
 
@@ -397,7 +382,7 @@ public class Storyteller : MonoBehaviour {
     // ~ OBSERVANCES ~ //
 
     void createObservance() {
-        if (sanctum.Population > 0) { // TODO: are there any feature-agnostic observances?
+        if (sanctum.Population > 0) {
             // observance or not?
             if (!roll(OBSERVANCE_FACTOR))
                 return;

@@ -73,6 +73,7 @@ public class Script {
         " misses the scent of flowers." // flowers
     };
 
+    // note: feature-agnostic observances will be lumped under houses
     public static Dictionary<int, string[]> observance = new Dictionary<int, string[]>
     {
         { (int)Catalog.Feature.House, new string[] { " repairs a damaged roof.", " mends clothes.", " reads a book." } },

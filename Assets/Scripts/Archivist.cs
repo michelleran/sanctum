@@ -13,10 +13,12 @@ public class Archivist : MonoBehaviour {
     public void save(bool open, int waitingRefugees) {
         Record record = new Record(stage.storyText.text, sanctum.Population, sanctum.Capacity,
                                    sanctum.Points, sanctum.PointsPerPerson, sanctum.TimeForPoints,
-                                   sanctum.residents.ToArray(), 
-                                   catalog.costs, sanctum.existingFeatures.ToArray(),
+                                   sanctum.residents.ToArray(), catalog.costs, 
+                                   sanctum.existingFeatures.ToArray(), sanctum.unlockedFeatures.ToArray(),
                                    sanctum.features[(int)Catalog.Feature.House], 
-                                   sanctum.features[(int)Catalog.Feature.Flowers], 
+                                   sanctum.features[(int)Catalog.Feature.Flowers],
+                                   sanctum.features[(int)Catalog.Feature.Shrine],
+                                   sanctum.features[(int)Catalog.Feature.Beacon],
                                    open, waitingRefugees);
 
         BinaryFormatter bf = new BinaryFormatter();

@@ -46,8 +46,8 @@ public class Sanctum : MonoBehaviour {
 			points = value;
 			stage.pointsAmountText.text = "" + points;
 
-            foreach (KeyValuePair<int, int> pair in features) {
-                storyteller.toggleAvailability(pair.Key, catalog.costs[pair.Key] <= points);
+            foreach (int type in unlockedFeatures) {
+                storyteller.toggleAvailability(type, catalog.costs[type] <= points);
             }
 		}
 	}
@@ -74,6 +74,7 @@ public class Sanctum : MonoBehaviour {
 
     public Dictionary<int, int> features = new Dictionary<int, int>();
 
+    public List<int> unlockedFeatures;
     public List<int> existingFeatures;
 
 	void Start () {
@@ -88,7 +89,9 @@ public class Sanctum : MonoBehaviour {
 
         features = new Dictionary<int, int> {
             {(int)Catalog.Feature.House, 0},
-            {(int)Catalog.Feature.Flowers, 0}
+            {(int)Catalog.Feature.Flowers, 0},
+            {(int)Catalog.Feature.Shrine, 0},
+            {(int)Catalog.Feature.Beacon, 0}
         };
 	}
 
@@ -128,11 +131,14 @@ public class Sanctum : MonoBehaviour {
             case (int)Catalog.Feature.Flowers:
                 PointsPerPerson += 3;
                 break;
+            case (int)Catalog.Feature.Shrine:
+                storyteller.ATTACK_FACTOR++;
+                break;
+            case (int)Catalog.Feature.Beacon:
+                storyteller.EVENT_FACTOR--;
+                break;
         }
 
-        /*Capacity += catalog.capacityEffects[type];
-        PointsPerPerson += catalog.pointsPerPersonEffects[type];
-        TimeForPoints += catalog.timeForPointsEffects[type];*/
         Points -= catalog.costs[type];
 
         // double cost

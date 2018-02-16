@@ -4,9 +4,6 @@ using UnityEngine;
 
 [System.Serializable]
 public class Record {
-
-    // TODO: probably record # waiting refugees, too?
-
     public string story;
 
     public int population;
@@ -20,20 +17,23 @@ public class Record {
 
     public int[] costs;
 
+    public int[] unlockedFeatures;
     public int[] existingFeatures;
 
     public int housesAmount;
     public int flowersAmount;
-    // TODO: more
+    public int shrinesAmount;
+    public int beaconsAmount;
 
     public bool open;
     public int waitingRefugees;
 
     public Record(string story, int population, int capacity, 
                   int points, int pointsPerPerson, float timeForPoints, 
-                  Person[] residents, 
-                  int[] costs, int[] existingFeatures, 
+                  Person[] residents, int[] costs, 
+                  int[] existingFeatures, int[] unlockedFeatures,
                   int housesAmount, int flowersAmount, 
+                  int shrinesAmount, int beaconsAmount,
                   bool open, int waitingRefugees) {
 
         this.story = story;
@@ -49,10 +49,13 @@ public class Record {
 
         this.costs = costs;
 
+        this.unlockedFeatures = unlockedFeatures;
         this.existingFeatures = existingFeatures;
 
         this.housesAmount = housesAmount;
         this.flowersAmount = flowersAmount;
+        this.shrinesAmount = shrinesAmount;
+        this.beaconsAmount = beaconsAmount;
 
         this.open = open;
         this.waitingRefugees = waitingRefugees;

@@ -32,6 +32,14 @@ public class Script {
         "flowers rise."
     };
 
+    public static string[] shrine = {
+        "a shrine rises."
+    };
+
+    public static string[] beacon = {
+        "a beacon rises."
+    };
+
     // EVENTS
     public static string[] gatesOpen = {
         "the gates open."
@@ -70,7 +78,9 @@ public class Script {
 
     public static string[] request = { // name will be appended
         "", // house - blank b/c will never be requested
-        " misses the scent of flowers." // flowers
+        " misses the scent of flowers.", // flowers
+        " thinks a shrine might help protect the sanctum.", // shrine
+        " thinks a beacon might help others find their way here." // beacon
     };
 
     // note: feature-agnostic observances will be lumped under houses

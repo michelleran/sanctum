@@ -13,8 +13,29 @@ public class Storyteller : MonoBehaviour {
 	public const float GATE_COOLDOWN = 4f; // temp
 
 	public const float EVENT_INTERVAL = 5f; // temp
-    public const int EVENT_FACTOR = 10; // temp; larger = smaller likelihood of event
-    public const int ATTACK_FACTOR = 3; // temp
+
+    int _EVENT_FACTOR = 10; // temp; larger = smaller likelihood of event
+    public int EVENT_FACTOR {
+        get { return _EVENT_FACTOR; }
+        set {
+            _EVENT_FACTOR = value;
+            if (_EVENT_FACTOR <= 5) { // min event factor; temp
+                stage.raiseBeaconsButton.interactable = false;
+            }
+        }
+    }
+
+    int _ATTACK_FACTOR = 3; // temp
+    public int ATTACK_FACTOR {
+        get { return _ATTACK_FACTOR; }
+        set {
+            _ATTACK_FACTOR = value;
+            if (_ATTACK_FACTOR >= 10) { // max attack factor; temp
+                stage.raiseShrinesButton.interactable = false;
+            }
+        }
+    }
+
     public const int DEATH_FACTOR = 5; // temp
 
     public const float REQUEST_INTERVAL = 10f; // temp
@@ -113,6 +134,7 @@ public class Storyteller : MonoBehaviour {
 	void raiseTutorialHouse() {
         // circumvent normal process of adding a house
         sanctum.features[(int)Catalog.Feature.House] += 1;
+        sanctum.unlockedFeatures.Add((int)Catalog.Feature.House);
         sanctum.existingFeatures.Add((int)Catalog.Feature.House);
         sanctum.Capacity += 4; // tutorial house is different from normal
         sanctum.Points -= 25;
@@ -177,6 +199,16 @@ public class Storyteller : MonoBehaviour {
                 listener = raiseFlowers;
                 StartCoroutine(unlockFeature(type, listener));
                 break;
+
+            case (int)Catalog.Feature.Shrine:
+                listener = raiseShrine;
+                StartCoroutine(unlockFeature(type, listener));
+                break;
+
+            case (int)Catalog.Feature.Beacon:
+                listener = raiseBeacon;
+                StartCoroutine(unlockFeature(type, listener));
+                break;
         }
     }
 
@@ -187,10 +219,14 @@ public class Storyteller : MonoBehaviour {
         catalog.locked.Remove(type);
         catalog.buttons[type].gameObject.SetActive(true);
         catalog.buttons[type].onClick.AddListener(listener);
+        catalog.buttons[type].interactable = sanctum.Points >= catalog.costs[type];
 
         if (!isTutorial) {
             catalog.displays[type].SetActive(true);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(stage.featuresRect);
         }
+
+        sanctum.unlockedFeatures.Add(type);
     }
 
 	IEnumerator toggleOption(GameObject option, bool active) {
@@ -230,8 +266,8 @@ public class Storyteller : MonoBehaviour {
         StartCoroutine (toggleOption (stage.featuresDisplay.gameObject, true));
 
         // activate feature-associated UI elements
-        sanctum.existingFeatures = new List<int>(record.existingFeatures);
-        foreach (int type in sanctum.existingFeatures)
+        // don't need to modify sanctum.unlockedFeatures - handled in unlockFeature
+        foreach (int type in record.unlockedFeatures)
             unlockFeature(type);
 
         // restore story
@@ -262,12 +298,22 @@ public class Storyteller : MonoBehaviour {
 
         catalog.costs = record.costs;
 
+        sanctum.existingFeatures = new List<int>(record.existingFeatures);
+
         sanctum.features[(int)Catalog.Feature.House] = record.housesAmount;
         sanctum.features[(int)Catalog.Feature.Flowers] = record.flowersAmount;
+        sanctum.features[(int)Catalog.Feature.Shrine] = record.shrinesAmount;
+        sanctum.features[(int)Catalog.Feature.Beacon] = record.beaconsAmount;
+
+        // modify factors - this should toggle availability of buttons too
+        ATTACK_FACTOR += record.shrinesAmount;
+        EVENT_FACTOR -= record.beaconsAmount;
 
         // have to manually update displays
         stage.housesAmountText.text = "" + record.housesAmount;
         stage.flowersAmountText.text = "" + record.flowersAmount;
+        stage.shrinesAmountText.text = "" + record.shrinesAmount;
+        stage.beaconsAmountText.text = "" + record.shrinesAmount;
 
         // now resume normal gameplay
         stage.openGatesButton.interactable = false;
@@ -407,7 +453,6 @@ public class Storyteller : MonoBehaviour {
         stage.cooldownIndicator.fillAmount = 1.0f;
 		Open = true;
 		stage.openGatesButton.interactable = false;
-        //stage.gatesStatusText.text = "open";
 
         StartCoroutine (displayMessages (Script.gatesOpen));
 		StartCoroutine (countDownToClose ());
@@ -416,7 +461,6 @@ public class Storyteller : MonoBehaviour {
 	IEnumerator countDownToClose() {
 		yield return new WaitForSeconds (GATE_OPEN_DURATION);
 		Open = false;
-        //stage.gatesStatusText.text = "closed";
 
         StartCoroutine(displayMessages (Script.gatesClose));
 		StartCoroutine (cooldown ());
@@ -438,7 +482,17 @@ public class Storyteller : MonoBehaviour {
 	}
 
     void raiseFlowers() {
-        string message = sanctum.addFeature((int)Catalog.Feature.Flowers);
-        StartCoroutine(displayMessages(message));
+        string message = sanctum.addFeature ((int)Catalog.Feature.Flowers);
+        StartCoroutine (displayMessages (message));
+    }
+
+    void raiseShrine() {
+        string message = sanctum.addFeature ((int)Catalog.Feature.Shrine);
+        StartCoroutine (displayMessages (message));
+    }
+
+    void raiseBeacon() {
+        string message = sanctum.addFeature ((int)Catalog.Feature.Beacon);
+        StartCoroutine (displayMessages (message));
     }
 }

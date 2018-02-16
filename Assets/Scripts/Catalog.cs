@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Catalog : MonoBehaviour
 {
     
-    public enum Feature { House, Flowers }; // TODO: more
+    public enum Feature { House, Flowers, Shrine, Beacon }; // TODO: more
 
     public Stage stage;
 
@@ -16,15 +16,18 @@ public class Catalog : MonoBehaviour
     public Text[] labels;
     public Text[] amounts;
 
-    public int[] costs =
-    {
+    public int[] costs = {
         50, // house
-        30 // flowers
+        30, // flowers
+        100, // shrine
+        200 // beacon
     };
 
     public string[][] possibleMessages = {
         Script.house,
-        Script.flowers
+        Script.flowers,
+        Script.shrine,
+        Script.beacon
     };
 
     public List<int> locked;
@@ -32,22 +35,30 @@ public class Catalog : MonoBehaviour
     private void Start() {
         displays = new GameObject[]{
             stage.housesDisplay,
-            stage.flowersDisplay
+            stage.flowersDisplay,
+            stage.shrinesDisplay,
+            stage.beaconsDisplay
         };
 
         buttons = new Button[]{
             stage.raiseHouseButton,
-            stage.raiseFlowersButton
+            stage.raiseFlowersButton,
+            stage.raiseShrinesButton,
+            stage.raiseBeaconsButton
         };
 
         labels = new Text[]{
             stage.housesText,
-            stage.flowersText
+            stage.flowersText,
+            stage.shrinesText,
+            stage.beaconsText
         };
 
         amounts = new Text[]{
             stage.housesAmountText,
-            stage.flowersAmountText
+            stage.flowersAmountText,
+            stage.shrinesAmountText,
+            stage.beaconsAmountText
         };
 
         locked = new List<int>();

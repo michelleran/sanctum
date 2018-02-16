@@ -24,26 +24,12 @@ public class Storyteller : MonoBehaviour {
     public const int OBSERVANCE_FACTOR = 5; // temp
 
 
-	// REFERENCES
+    // REFERENCES
 
+    public Archivist archivist;
 	public Sanctum sanctum;
     public Stage stage;
     public Catalog catalog;
-
-    /*public Image topDisplay;
-    public ScrollRect featuresDisplay;
-
-	public Text storyText;
-
-    public Text gatesStatusText;
-
-    public Text housesAmountText;
-    public Text flowersAmountText;
-
-	public Button raiseGatesButton;
-	public Button openGatesButton;
-
-    public Image cooldownIndicator;*/
 
     RectTransform storyRect;
 
@@ -71,7 +57,12 @@ public class Storyteller : MonoBehaviour {
 
 	void Start () {
         storyRect = stage.storyText.GetComponent<RectTransform>();
-		beginTutorial ();
+
+        if (archivist.saveExists ()) {
+            StartCoroutine (restore (archivist.load ()));
+        } else {
+            beginTutorial();
+        }
 	}
 
 	void Update () {
@@ -81,6 +72,10 @@ public class Storyteller : MonoBehaviour {
             stage.cooldownIndicator.fillAmount -= Time.deltaTime / GATE_COOLDOWN;
         }
 	}
+
+    private void OnApplicationQuit() {
+        archivist.save();
+    }
 
 
     //--- TUTORIAL ---//
@@ -142,6 +137,8 @@ public class Storyteller : MonoBehaviour {
 		InvokeRepeating ("createEvent", EVENT_INTERVAL, EVENT_INTERVAL);
         InvokeRepeating ("createRequest", REQUEST_INTERVAL, REQUEST_INTERVAL);
         InvokeRepeating ("createObservance", OBSERVANCE_INTERVAL, OBSERVANCE_INTERVAL);
+
+        StartCoroutine (save ());
 	}
 
 
@@ -204,6 +201,71 @@ public class Storyteller : MonoBehaviour {
 
     public void toggleAvailability(int type, bool available) {
         catalog.buttons[type].interactable = available;
+    }
+
+    IEnumerator save() {
+        while (isTellingStory)
+            yield return new WaitForSeconds(0.1f);
+
+        archivist.save();
+    }
+
+    IEnumerator restore(Record record) {
+        // if catalog's arrays haven't yet been initialized, wait
+        while (catalog.locked.Count == 0 || catalog.buttons.Length == 0)
+            yield return new WaitForSeconds(0.1f);
+
+        // activate displays
+        StartCoroutine (toggleOption (stage.topDisplay.gameObject, true));
+        StartCoroutine (toggleOption (stage.featuresDisplay.gameObject, true));
+
+        // activate gates button
+        StartCoroutine (toggleOption (stage.openGatesButton.gameObject, true));
+
+        // activate feature-associated UI elements
+        sanctum.existingFeatures = new List<int>(record.existingFeatures);
+        foreach (int type in sanctum.existingFeatures)
+            unlockFeature(type);
+
+        // restore story
+        stage.storyText.text = record.story;
+
+        // load in data
+        sanctum.Population = record.population;
+        sanctum.Capacity = record.capacity;
+
+        sanctum.Points = record.points;
+        sanctum.PointsPerPerson = record.pointsPerPerson;
+        sanctum.TimeForPoints = record.timeForPoints;
+
+        List<Person> residents = new List<Person>(record.residents);
+        sanctum.residents = residents;
+        restoreResidents(residents);
+
+        sanctum.features[(int)Catalog.Feature.House] = record.housesAmount;
+        sanctum.features[(int)Catalog.Feature.Flowers] = record.flowersAmount;
+
+        // have to manually update displays
+        stage.housesAmountText.text = "" + record.housesAmount;
+        stage.flowersAmountText.text = "" + record.flowersAmount;
+
+        // now resume normal gameplay
+        stage.openGatesButton.interactable = false;
+        stage.openGatesButton.onClick.AddListener(openGates);
+        StartCoroutine (cooldown ());
+
+        InvokeRepeating ("createEvent", EVENT_INTERVAL, EVENT_INTERVAL);
+        InvokeRepeating ("createRequest", REQUEST_INTERVAL, REQUEST_INTERVAL);
+        InvokeRepeating ("createObservance", OBSERVANCE_INTERVAL, OBSERVANCE_INTERVAL);
+    }
+
+    void restoreResidents(List<Person> residents) {
+        for (int i = 0; i < residents.Count; i++) {
+            GameObject obj = new GameObject("Person");
+            obj.AddComponent<AudioSource>();
+            obj.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Audio/" + Person.notes[residents[i].note]);
+            residents[i].obj = obj;
+        }
     }
 
     bool roll(int factor) {
@@ -374,5 +436,7 @@ public class Storyteller : MonoBehaviour {
     void raiseFlowers() {
         string message = sanctum.addFeature((int)Catalog.Feature.Flowers);
         StartCoroutine(displayMessages(new string[] { message }));
+
+        archivist.save(); // TODO: for testing purposes
     }
 }

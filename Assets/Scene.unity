@@ -411,7 +411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &300054682
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1376,10 +1376,11 @@ GameObject:
   - component: {fileID: 1052490156}
   - component: {fileID: 1052490155}
   - component: {fileID: 1052490154}
-  - component: {fileID: 1052490159}
   - component: {fileID: 1052490163}
-  - component: {fileID: 1052490160}
   - component: {fileID: 1052490162}
+  - component: {fileID: 1052490159}
+  - component: {fileID: 1052490164}
+  - component: {fileID: 1052490160}
   - component: {fileID: 1052490161}
   m_Layer: 0
   m_Name: Main Camera
@@ -1469,6 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb753fce5d03485295de270b22f0c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  residents: []
   existingFeatures: 
 --- !u!114 &1052490160
 MonoBehaviour:
@@ -1481,6 +1483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee2a476c0f3b4119b55c1cbb7b95ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  archivist: {fileID: 1052490164}
   sanctum: {fileID: 1052490159}
   stage: {fileID: 1052490163}
   catalog: {fileID: 1052490162}
@@ -1546,6 +1549,19 @@ MonoBehaviour:
   cooldownIndicator: {fileID: 1869872640}
   raiseHouseButton: {fileID: 1179767145}
   raiseFlowersButton: {fileID: 62264778}
+--- !u!114 &1052490164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052490153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2ec5d720e944cbfafd6ac5ad14730a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stage: {fileID: 1052490163}
+  sanctum: {fileID: 1052490159}
 --- !u!1 &1073274383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,7 +1576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1073274384
 RectTransform:
   m_ObjectHideFlags: 0

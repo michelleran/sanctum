@@ -64,6 +64,10 @@ public class Script {
         "a refugee is slain by a monster."
     };
 
+    public static string[] peacefulDeath = {
+        " quietly passes away in the night"
+    };
+
     public static string[] request = { // name will be appended
         "", // house - blank b/c will never be requested
         " misses the scent of flowers." // flowers

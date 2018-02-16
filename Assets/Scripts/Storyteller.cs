@@ -148,7 +148,7 @@ public class Storyteller : MonoBehaviour {
 
 	//--- GENERAL FUNCTIONS ---//
 
-	IEnumerator displayMessages(string[] messages) {
+	IEnumerator displayMessages(params string[] messages) {
 		while (isTellingStory)       
 			yield return new WaitForSeconds(0.1f);
 
@@ -160,6 +160,10 @@ public class Storyteller : MonoBehaviour {
 
 		isTellingStory = false;
 	}
+
+    string pickRandomMessage(string[] messages) {
+        return messages[Random.Range(0, messages.Length)];
+    }
 
     void unlockFeature(int type) {
         UnityEngine.Events.UnityAction listener;
@@ -324,24 +328,21 @@ public class Storyteller : MonoBehaviour {
                 sanctum.Population -= killed;
 
                 // pick random message
-                string attackMessage = Script.attack[Random.Range(0, Script.attack.Length)];
-                string casualtiesMessage = Script.casualties[Random.Range(0, Script.casualties.Length)];
+                //string attackMessage = Script.attack[Random.Range(0, Script.attack.Length)];
+                //string casualtiesMessage = Script.casualties[Random.Range(0, Script.casualties.Length)];
+                string casualtiesMessage = pickRandomMessage(Script.casualties);
                 casualtiesMessage = casualtiesMessage.Replace("#", "" + killed); // TODO: deal w/ plurals
 
-                StartCoroutine (displayMessages (new string[] { attackMessage, casualtiesMessage }));
+                StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
 
                 return;
             }
         }
 
-        if (!Open && waitingRefugees > 0)
-        {
+        if (!Open && waitingRefugees > 0) {
             // only kill one at a time - at least, right now
             waitingRefugees -= 1;
-
-            string message = Script.death[Random.Range(0, Script.death.Length)];
-            StartCoroutine(displayMessages(new string[] { message }));
-
+            StartCoroutine(displayMessages(pickRandomMessage(Script.death)));
             return;
         }
 
@@ -350,13 +351,12 @@ public class Storyteller : MonoBehaviour {
             waitingRefugees += arrivals;
 
             string message;
-            if (arrivals == 1) {
-                message = Script.arrival[Random.Range(0, Script.arrival.Length)];
-            } else {
-                message = Script.arrivals[Random.Range(0, Script.arrivals.Length)];
-            }
+            if (arrivals == 1)
+                message = pickRandomMessage(Script.arrival);
+            else
+                message = pickRandomMessage(Script.arrivals);
 
-            StartCoroutine(displayMessages(new string[] { message }));
+            StartCoroutine(displayMessages(message));
 
             if (Open) {
                 for (int i = 0; i < waitingRefugees; i++) { sanctum.addResident(new Person()); }
@@ -383,7 +383,7 @@ public class Storyteller : MonoBehaviour {
 
             // request a locked feature, thereby unlocking it
             int i = Random.Range(0, catalog.locked.Count);
-            StartCoroutine (displayMessages (new string[] { person.name + Script.request[catalog.locked[i]] }));
+            StartCoroutine (displayMessages (person.name + Script.request[catalog.locked[i]]));
             unlockFeature(catalog.locked[i]);
         }
     }
@@ -406,8 +406,7 @@ public class Storyteller : MonoBehaviour {
             int feature = sanctum.existingFeatures[f];
 
             // pick a message & append name
-            int m = Random.Range(0, Script.observance[feature].Length);
-            StartCoroutine (displayMessages (new string[] { person.name + Script.observance[feature][m] }));
+            StartCoroutine (displayMessages (person.name + pickRandomMessage(Script.observance[feature])));
         }
     }
 
@@ -445,11 +444,11 @@ public class Storyteller : MonoBehaviour {
 
 	void raiseHouse() {
         string message = sanctum.addFeature ((int)Catalog.Feature.House);
-        StartCoroutine (displayMessages (new string[] { message }));
+        StartCoroutine (displayMessages (message));
 	}
 
     void raiseFlowers() {
         string message = sanctum.addFeature((int)Catalog.Feature.Flowers);
-        StartCoroutine(displayMessages(new string[] { message }));
+        StartCoroutine(displayMessages(message));
     }
 }

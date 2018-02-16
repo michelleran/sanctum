@@ -24,9 +24,13 @@ public class Record {
     public int flowersAmount;
     // TODO: more
 
+    public bool open;
+    public int waitingRefugees;
+
     public Record(string story, int population, int capacity, 
                   int points, int pointsPerPerson, float timeForPoints, Person[] residents, 
-                  int[] existingFeatures, int housesAmount, int flowersAmount) {
+                  int[] existingFeatures, int housesAmount, int flowersAmount, 
+                  bool open, int waitingRefugees) {
 
         this.story = story;
 
@@ -43,5 +47,8 @@ public class Record {
 
         this.housesAmount = housesAmount;
         this.flowersAmount = flowersAmount;
+
+        this.open = open;
+        this.waitingRefugees = waitingRefugees;
     }
 }

@@ -9,7 +9,6 @@ public class Sanctum : MonoBehaviour {
 
     Stage stage;
     Storyteller storyteller;
-    Maestro maestro;
     Catalog catalog;
 
     /*public Text pointsAmountText;
@@ -80,7 +79,6 @@ public class Sanctum : MonoBehaviour {
 	void Start () {
         stage = this.gameObject.GetComponent<Stage>();
         storyteller = this.gameObject.GetComponent<Storyteller>();
-        maestro = this.gameObject.GetComponent<Maestro>();
         catalog = this.gameObject.GetComponent<Catalog>();
 
         existingFeatures = new List<int>();

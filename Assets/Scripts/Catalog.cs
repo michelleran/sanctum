@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Catalog : MonoBehaviour
 {
     
-    public enum Feature { House, Flowers, Shrine, Beacon }; // TODO: more
+    public enum Feature { House, Flowers, Shrine, Beacon };
 
     public Stage stage;
 

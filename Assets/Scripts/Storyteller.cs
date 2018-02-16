@@ -367,10 +367,12 @@ public class Storyteller : MonoBehaviour {
                 sanctum.killResident();
 
             // pick random message
-            string casualtiesMessage = pickRandomMessage(Script.casualties);
-            casualtiesMessage = casualtiesMessage.Replace("#", "" + killed); // TODO: deal w/ plurals
+            //string casualtiesMessage = pickRandomMessage(Script.casualties);
+            //casualtiesMessage = casualtiesMessage.Replace("#", "" + killed);
 
-            StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
+            //StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), casualtiesMessage }));
+
+            StartCoroutine (displayMessages (pickRandomMessage(Script.attack)));
 
             return;
 
@@ -405,8 +407,6 @@ public class Storyteller : MonoBehaviour {
 
             return;
         }
-
-        // TODO: show different messages for arrivals while gate is open vs. while gate is closed?
 	}
 
 

@@ -53,9 +53,9 @@ public class Script {
         "monsters attack."
     };
 
-    public static string[] casualties = {
+    /*public static string[] casualties = {
         "# people were killed."
-    };
+    };*/
 
     public static string[] arrival = {
         "a refugee arrives."

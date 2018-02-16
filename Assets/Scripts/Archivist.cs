@@ -30,6 +30,9 @@ public class Archivist : MonoBehaviour {
     }
 
     public bool saveExists() {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+            return false;
+
         return File.Exists(Application.persistentDataPath + "/record.gd");
     }
 

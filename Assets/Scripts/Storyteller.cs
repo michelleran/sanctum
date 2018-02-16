@@ -256,6 +256,8 @@ public class Storyteller : MonoBehaviour {
         sanctum.residents = residents;
         restoreResidents(residents);
 
+        catalog.costs = record.costs;
+
         sanctum.features[(int)Catalog.Feature.House] = record.housesAmount;
         sanctum.features[(int)Catalog.Feature.Flowers] = record.flowersAmount;
 

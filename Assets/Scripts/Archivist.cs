@@ -8,11 +8,13 @@ public class Archivist : MonoBehaviour {
 
     public Stage stage;
     public Sanctum sanctum;
+    public Catalog catalog;
 
     public void save(bool open, int waitingRefugees) {
         Record record = new Record(stage.storyText.text, sanctum.Population, sanctum.Capacity,
                                    sanctum.Points, sanctum.PointsPerPerson, sanctum.TimeForPoints,
-                                   sanctum.residents.ToArray(), sanctum.existingFeatures.ToArray(),
+                                   sanctum.residents.ToArray(), 
+                                   catalog.costs, sanctum.existingFeatures.ToArray(),
                                    sanctum.features[(int)Catalog.Feature.House], 
                                    sanctum.features[(int)Catalog.Feature.Flowers], 
                                    open, waitingRefugees);

@@ -18,6 +18,8 @@ public class Record {
 
     public Person[] residents;
 
+    public int[] costs;
+
     public int[] existingFeatures;
 
     public int housesAmount;
@@ -28,8 +30,10 @@ public class Record {
     public int waitingRefugees;
 
     public Record(string story, int population, int capacity, 
-                  int points, int pointsPerPerson, float timeForPoints, Person[] residents, 
-                  int[] existingFeatures, int housesAmount, int flowersAmount, 
+                  int points, int pointsPerPerson, float timeForPoints, 
+                  Person[] residents, 
+                  int[] costs, int[] existingFeatures, 
+                  int housesAmount, int flowersAmount, 
                   bool open, int waitingRefugees) {
 
         this.story = story;
@@ -42,6 +46,8 @@ public class Record {
         this.timeForPoints = timeForPoints;
 
         this.residents = residents;
+
+        this.costs = costs;
 
         this.existingFeatures = existingFeatures;
 

@@ -9,18 +9,6 @@ public class Catalog : MonoBehaviour
     
     public enum Feature { House, Flowers }; // TODO: more
 
-    /*public GameObject housesDisplay;
-    public GameObject flowersDisplay;
-
-    public Button raiseHouseButton;
-    public Button raiseFlowersButton;
-
-    public Text housesText;
-    public Text flowersText;
-
-    public Text housesAmountText;
-    public Text flowersAmountText;*/
-
     public Stage stage;
 
     public GameObject[] displays;

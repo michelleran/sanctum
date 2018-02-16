@@ -1562,6 +1562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stage: {fileID: 1052490163}
   sanctum: {fileID: 1052490159}
+  catalog: {fileID: 1052490162}
 --- !u!1 &1073274383
 GameObject:
   m_ObjectHideFlags: 0

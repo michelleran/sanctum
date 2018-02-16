@@ -7,7 +7,7 @@ public class Person {
 
     public static string[] notes = { "bb", "c2", "eb", "f2", "g2" };
 
-    const int MAX_INTERVAL = 8; // temp
+    const int MAX_INTERVAL = 12; // temp
     const int MIN_INTERVAL = 2; // temp
 
     public string name = "X"; // TODO: give people names

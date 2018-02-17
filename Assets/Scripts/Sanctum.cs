@@ -123,7 +123,7 @@ public class Sanctum : MonoBehaviour {
         return person.name;
     }
 
-    public string addFeature(int type) {
+    public void addFeature(int type) {
 
         if (features[type] == 0)
             existingFeatures.Add(type);
@@ -153,9 +153,5 @@ public class Sanctum : MonoBehaviour {
 
         // update features display
         catalog.amounts[type].text = "" + features[type];
-
-        // pick a random message to show
-        int m = Random.Range(0, catalog.possibleMessages[type].Length);
-        return catalog.possibleMessages[type][m];
     }
 }

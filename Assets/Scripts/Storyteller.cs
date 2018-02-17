@@ -479,21 +479,34 @@ public class Storyteller : MonoBehaviour {
 	}
 
 	void raiseHouse() {
+        // as a failsafe...
+        if (sanctum.Points < catalog.costs[(int)Catalog.Feature.House])
+            return;
+
         sanctum.addFeature ((int)Catalog.Feature.House);
         StartCoroutine (displayMessages (pickRandomMessage(Script.house)));
 	}
 
     void raiseFlowers() {
+        if (sanctum.Points < catalog.costs[(int)Catalog.Feature.Flowers])
+            return;
+
         sanctum.addFeature ((int)Catalog.Feature.Flowers);
         StartCoroutine (displayMessages (pickRandomMessage(Script.flowers)));
     }
 
     void raiseShrine() {
+        if (sanctum.Points < catalog.costs[(int)Catalog.Feature.Shrine])
+            return;
+
         sanctum.addFeature ((int)Catalog.Feature.Shrine);
         StartCoroutine (displayMessages (pickRandomMessage(Script.shrine)));
     }
 
     void raiseBeacon() {
+        if (sanctum.Points < catalog.costs[(int)Catalog.Feature.Beacon])
+            return;
+
         sanctum.addFeature ((int)Catalog.Feature.Beacon);
         StartCoroutine (displayMessages (pickRandomMessage(Script.beacon)));
     }

@@ -78,7 +78,12 @@ public class Sanctum : MonoBehaviour {
 
 	float timeSinceLastPoints = 0;
 
-    public Dictionary<int, int> features = new Dictionary<int, int>();
+    public Dictionary<int, int> features = new Dictionary<int, int> {
+        {(int)Catalog.Feature.House, 0},
+        {(int)Catalog.Feature.Flowers, 0},
+        {(int)Catalog.Feature.Shrine, 0},
+        {(int)Catalog.Feature.Beacon, 0}
+    };
 
     public List<int> unlockedFeatures;
     public List<int> existingFeatures;
@@ -92,13 +97,6 @@ public class Sanctum : MonoBehaviour {
 		Capacity = 1;
         Population = 0;
 		Points = 0;
-
-        features = new Dictionary<int, int> {
-            {(int)Catalog.Feature.House, 0},
-            {(int)Catalog.Feature.Flowers, 0},
-            {(int)Catalog.Feature.Shrine, 0},
-            {(int)Catalog.Feature.Beacon, 0}
-        };
 	}
 
 	void Update () {
@@ -125,6 +123,8 @@ public class Sanctum : MonoBehaviour {
 
     public void addFeature(int type) {
 
+        Debug.Log("in addfeature");
+
         if (features[type] == 0)
             existingFeatures.Add(type);
 
@@ -145,7 +145,11 @@ public class Sanctum : MonoBehaviour {
                 break;
         }
 
+        Debug.Log("points: " + Points + "; cost: " + catalog.costs[type]);
+
         Points -= catalog.costs[type];
+
+        Debug.Log("now points are: " + points);
 
         // double cost
         catalog.costs[type] *= 2;

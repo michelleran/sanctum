@@ -14,8 +14,8 @@ public class Storyteller : MonoBehaviour {
 
 	public const float EVENT_INTERVAL = 10f;
 
-    public const int MIN_EVENT_FACTOR = 3;
-    int _EVENT_FACTOR = 7;
+    public const int MIN_EVENT_FACTOR = 2;
+    int _EVENT_FACTOR = 6;
     public int EVENT_FACTOR {
         get { return _EVENT_FACTOR; }
         set {
@@ -27,8 +27,8 @@ public class Storyteller : MonoBehaviour {
         }
     }
 
-    public const int MAX_ATTACK_FACTOR = 7; // temp
-    int _ATTACK_FACTOR = 3; // temp
+    public const int MAX_ATTACK_FACTOR = 6; // temp
+    int _ATTACK_FACTOR = 2; // temp
     public int ATTACK_FACTOR {
         get { return _ATTACK_FACTOR; }
         set {
@@ -370,7 +370,7 @@ public class Storyteller : MonoBehaviour {
             for (int i = 0; i < killed; i++)
                 sanctum.killResident();
 
-            StartCoroutine (displayMessages (pickRandomMessage(Script.attack)));
+            StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), killed + pickRandomMessage(Script.casualties) }));
 
             return;
 
@@ -396,7 +396,7 @@ public class Storyteller : MonoBehaviour {
             else
                 message = pickRandomMessage(Script.arrivals);
 
-            StartCoroutine(displayMessages(message));
+            StartCoroutine(displayMessages(arrivals + message));
 
             if (Open) {
                 for (int i = 0; i < waitingRefugees; i++) { sanctum.addResident(new Person()); }

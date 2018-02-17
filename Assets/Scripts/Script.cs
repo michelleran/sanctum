@@ -53,16 +53,16 @@ public class Script {
         "monsters attack."
     };
 
-    /*public static string[] casualties = {
-        "# people were killed."
-    };*/
+    public static string[] casualties = {
+        " people were killed."
+    };
 
     public static string[] arrival = {
         "a refugee arrives."
     };
 
     public static string[] arrivals = {
-        "refugees arrive."
+        " refugees arrive." // number will be appended
     };
 
     public static string[] death = {

@@ -54,7 +54,11 @@ public class Script {
     };
 
     public static string[] casualties = {
-        " people were killed."
+        " lives are lost."
+    };
+
+    public static string[] casualty = {
+        "thankfully, only one life is lost."
     };
 
     public static string[] arrival = {

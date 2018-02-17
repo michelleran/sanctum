@@ -370,7 +370,11 @@ public class Storyteller : MonoBehaviour {
             for (int i = 0; i < killed; i++)
                 sanctum.killResident();
 
-            StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), killed + pickRandomMessage(Script.casualties) }));
+            string message = killed + pickRandomMessage(Script.casualties);
+            if (killed == 1)
+                message = pickRandomMessage(Script.casualty);
+
+            StartCoroutine (displayMessages (new string[] { pickRandomMessage(Script.attack), message }));
 
             return;
 
@@ -394,9 +398,9 @@ public class Storyteller : MonoBehaviour {
             if (arrivals == 1)
                 message = pickRandomMessage(Script.arrival);
             else
-                message = pickRandomMessage(Script.arrivals);
+                message = arrivals + pickRandomMessage(Script.arrivals);
 
-            StartCoroutine(displayMessages(arrivals + message));
+            StartCoroutine(displayMessages(message));
 
             if (Open) {
                 for (int i = 0; i < waitingRefugees; i++) { sanctum.addResident(new Person()); }

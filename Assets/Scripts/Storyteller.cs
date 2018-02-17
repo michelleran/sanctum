@@ -84,7 +84,7 @@ public class Storyteller : MonoBehaviour {
 	//--- SYSTEM FUNCTIONS ---//
 
 	void Start () {
-        if (Application.platform != RuntimePlatform.WebGLPlayer && archivist.saveExists()) {
+        if (archivist.saveExists()) {
             didFinishTutorial = true;
             StartCoroutine (restore (archivist.load ()));
         } else {
@@ -99,6 +99,11 @@ public class Storyteller : MonoBehaviour {
             stage.cooldownIndicator.fillAmount -= Time.deltaTime / GATE_COOLDOWN;
         }
 	}
+
+    private void OnApplicationPause(bool pause) {
+        if (didFinishTutorial)
+            archivist.save(open, waitingRefugees);
+    }
 
     private void OnApplicationQuit() {
         if (didFinishTutorial)

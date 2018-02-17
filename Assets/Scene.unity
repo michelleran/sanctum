@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 62264779}
   - component: {fileID: 62264778}
   m_Layer: 5
-  m_Name: RaiseFlowers
+  m_Name: RaiseOrchard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 234846333}
   - component: {fileID: 234846332}
   m_Layer: 5
-  m_Name: FlowersAmount
+  m_Name: OrchardsAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 300054682}
   m_Layer: 5
-  m_Name: FlowersDisplay
+  m_Name: OrchardsDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1015,7 +1015,7 @@ GameObject:
   - component: {fileID: 517781360}
   - component: {fileID: 517781359}
   m_Layer: 5
-  m_Name: RaiseFlowersLabel
+  m_Name: RaiseOrchardLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1071,7 +1071,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: raise flowers
+  m_Text: raise orchard
 --- !u!222 &517781360
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1987,24 +1987,24 @@ MonoBehaviour:
   featuresDisplay: {fileID: 1955460692}
   featuresRect: {fileID: 674136857}
   housesDisplay: {fileID: 1073274383}
-  flowersDisplay: {fileID: 300054681}
+  orchardsDisplay: {fileID: 300054681}
   shrinesDisplay: {fileID: 2126117569}
   beaconsDisplay: {fileID: 1301207789}
   housesText: {fileID: 1160406803}
-  flowersText: {fileID: 1460820828}
+  orchardsText: {fileID: 1460820828}
   shrinesText: {fileID: 781314519}
   beaconsText: {fileID: 1032699578}
   housesAmountText: {fileID: 1365420487}
-  flowersAmountText: {fileID: 234846332}
+  orchardsAmountText: {fileID: 234846332}
   shrinesAmountText: {fileID: 716835202}
   beaconsAmountText: {fileID: 1828522570}
   raiseGatesButton: {fileID: 483483566}
   openGatesButton: {fileID: 489334944}
   cooldownIndicator: {fileID: 1869872640}
   raiseHouseButton: {fileID: 1179767145}
-  raiseFlowersButton: {fileID: 62264778}
+  raiseOrchardButton: {fileID: 62264778}
   raiseShrinesButton: {fileID: 323254404}
-  raiseBeaconsButton: {fileID: 579065631}
+  raiseBeaconButton: {fileID: 579065631}
 --- !u!114 &1052490164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2816,7 +2816,7 @@ GameObject:
   - component: {fileID: 1460820829}
   - component: {fileID: 1460820828}
   m_Layer: 5
-  m_Name: Flowers
+  m_Name: Orchards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2872,7 +2872,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: flowers
+  m_Text: orchards
 --- !u!222 &1460820829
 CanvasRenderer:
   m_ObjectHideFlags: 0

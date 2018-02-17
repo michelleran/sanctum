@@ -21,7 +21,7 @@ public class Record {
     public int[] existingFeatures;
 
     public int housesAmount;
-    public int flowersAmount;
+    public int orchardsAmount;
     public int shrinesAmount;
     public int beaconsAmount;
 
@@ -32,7 +32,7 @@ public class Record {
                   int points, int pointsPerPerson, float timeForPoints, 
                   Person[] residents, int[] costs, 
                   int[] existingFeatures, int[] unlockedFeatures,
-                  int housesAmount, int flowersAmount, 
+                  int housesAmount, int orchardsAmount, 
                   int shrinesAmount, int beaconsAmount,
                   bool open, int waitingRefugees) {
 
@@ -53,7 +53,7 @@ public class Record {
         this.existingFeatures = existingFeatures;
 
         this.housesAmount = housesAmount;
-        this.flowersAmount = flowersAmount;
+        this.orchardsAmount = orchardsAmount;
         this.shrinesAmount = shrinesAmount;
         this.beaconsAmount = beaconsAmount;
 

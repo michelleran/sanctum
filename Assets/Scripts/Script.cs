@@ -28,8 +28,8 @@ public class Script {
         "a house rises."
     };
 
-    public static string[] flowers = {
-        "flowers rise."
+    public static string[] orchard = {
+        "an orchard rises."
     };
 
     public static string[] shrine = {
@@ -82,7 +82,7 @@ public class Script {
 
     public static string[] request = { // name will be appended
         "", // house - blank b/c will never be requested
-        " misses the scent of flowers.", // flowers
+        " misses the taste of fresh fruit.", // orchard
         " thinks a shrine might help protect the sanctum.", // shrine
         " thinks a beacon might help others find their way here." // beacon
     };
@@ -90,7 +90,7 @@ public class Script {
     // note: feature-agnostic observances will be lumped under houses
     public static Dictionary<int, string[]> observance = new Dictionary<int, string[]>
     {
-        { (int)Catalog.Feature.House, new string[] { " repairs a damaged roof.", " mends clothes.", " reads a book." } },
-        { (int)Catalog.Feature.Flowers, new string[] { " picks flowers.", " weaves a flower crown.", " takes a nap amidst the flowers." } }
+        { (int)Catalog.Feature.House, new string[] { " repairs a damaged roof.", " mends clothes.", " reads a book.", " picks flowers.", " weaves a flower crown.", " takes a nap amidst the flowers." } },
+        { (int)Catalog.Feature.Orchard, new string[] { " picks fruits.", " walks amongst the trees.", " dozes off beneath a tree." } }
     };
 }

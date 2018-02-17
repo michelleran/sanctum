@@ -26,17 +26,17 @@ public class Stage : MonoBehaviour {
     public RectTransform featuresRect;
 
     public GameObject housesDisplay;
-    public GameObject flowersDisplay;
+    public GameObject orchardsDisplay;
     public GameObject shrinesDisplay;
     public GameObject beaconsDisplay;
 
     public Text housesText;
-    public Text flowersText;
+    public Text orchardsText;
     public Text shrinesText;
     public Text beaconsText;
 
     public Text housesAmountText;
-    public Text flowersAmountText;
+    public Text orchardsAmountText;
     public Text shrinesAmountText;
     public Text beaconsAmountText;
 
@@ -47,7 +47,7 @@ public class Stage : MonoBehaviour {
     public Image cooldownIndicator;
 
     public Button raiseHouseButton;
-    public Button raiseFlowersButton;
+    public Button raiseOrchardButton;
     public Button raiseShrinesButton;
-    public Button raiseBeaconsButton;
+    public Button raiseBeaconButton;
 }

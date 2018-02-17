@@ -49,7 +49,7 @@ public class Sanctum : MonoBehaviour {
             foreach (int type in unlockedFeatures) {
                 // if NOT a shrine & at shrine limit, and NOT a beacon & at beacon limit...
                 if (!(type == (int)Catalog.Feature.Shrine && storyteller.ATTACK_FACTOR >= Storyteller.MAX_ATTACK_FACTOR) &&
-                    !(type == (int)Catalog.Feature.Beacon && storyteller.EVENT_FACTOR >= Storyteller.MIN_EVENT_FACTOR)) {
+                    !(type == (int)Catalog.Feature.Beacon && storyteller.EVENT_FACTOR <= Storyteller.MIN_EVENT_FACTOR)) {
 
                     storyteller.toggleAvailability(type, catalog.costs[type] <= points);
 
@@ -80,7 +80,7 @@ public class Sanctum : MonoBehaviour {
 
     public Dictionary<int, int> features = new Dictionary<int, int> {
         {(int)Catalog.Feature.House, 0},
-        {(int)Catalog.Feature.Flowers, 0},
+        {(int)Catalog.Feature.Orchard, 0},
         {(int)Catalog.Feature.Shrine, 0},
         {(int)Catalog.Feature.Beacon, 0}
     };
@@ -134,7 +134,7 @@ public class Sanctum : MonoBehaviour {
             case (int)Catalog.Feature.House:
                 Capacity += 5;
                 break;
-            case (int)Catalog.Feature.Flowers:
+            case (int)Catalog.Feature.Orchard:
                 PointsPerPerson += 3;
                 break;
             case (int)Catalog.Feature.Shrine:

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Catalog : MonoBehaviour
 {
     
-    public enum Feature { House, Flowers, Shrine, Beacon };
+    public enum Feature { House, Orchard, Shrine, Beacon };
 
     public Stage stage;
 
@@ -18,14 +18,14 @@ public class Catalog : MonoBehaviour
 
     public int[] costs = {
         50, // house
-        30, // flowers
+        30, // orchard
         100, // shrine
         200 // beacon
     };
 
     public string[][] possibleMessages = {
         Script.house,
-        Script.flowers,
+        Script.orchard,
         Script.shrine,
         Script.beacon
     };
@@ -35,28 +35,28 @@ public class Catalog : MonoBehaviour
     private void Start() {
         displays = new GameObject[]{
             stage.housesDisplay,
-            stage.flowersDisplay,
+            stage.orchardsDisplay,
             stage.shrinesDisplay,
             stage.beaconsDisplay
         };
 
         buttons = new Button[]{
             stage.raiseHouseButton,
-            stage.raiseFlowersButton,
+            stage.raiseOrchardButton,
             stage.raiseShrinesButton,
-            stage.raiseBeaconsButton
+            stage.raiseBeaconButton
         };
 
         labels = new Text[]{
             stage.housesText,
-            stage.flowersText,
+            stage.orchardsText,
             stage.shrinesText,
             stage.beaconsText
         };
 
         amounts = new Text[]{
             stage.housesAmountText,
-            stage.flowersAmountText,
+            stage.orchardsAmountText,
             stage.shrinesAmountText,
             stage.beaconsAmountText
         };

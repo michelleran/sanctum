@@ -19,7 +19,7 @@ public class Archivist : MonoBehaviour {
                                    sanctum.residents.ToArray(), catalog.costs, 
                                    sanctum.existingFeatures.ToArray(), sanctum.unlockedFeatures.ToArray(),
                                    sanctum.features[(int)Catalog.Feature.House], 
-                                   sanctum.features[(int)Catalog.Feature.Flowers],
+                                   sanctum.features[(int)Catalog.Feature.Orchard],
                                    sanctum.features[(int)Catalog.Feature.Shrine],
                                    sanctum.features[(int)Catalog.Feature.Beacon],
                                    open, waitingRefugees);

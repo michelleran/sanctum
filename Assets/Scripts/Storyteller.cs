@@ -14,7 +14,7 @@ public class Storyteller : MonoBehaviour {
 
 	public const float EVENT_INTERVAL = 10f;
 
-    public const int MIN_EVENT_FACTOR = 2;
+    public const int MIN_EVENT_FACTOR = 1;
     int _EVENT_FACTOR = 6;
     public int EVENT_FACTOR {
         get { return _EVENT_FACTOR; }
@@ -22,12 +22,12 @@ public class Storyteller : MonoBehaviour {
             Debug.Log("new event factor: " + value);
             _EVENT_FACTOR = value;
             if (_EVENT_FACTOR <= MIN_EVENT_FACTOR) { // min event factor; temp
-                stage.raiseBeaconsButton.interactable = false;
+                stage.raiseBeaconButton.interactable = false;
             }
         }
     }
 
-    public const int MAX_ATTACK_FACTOR = 6; // temp
+    public const int MAX_ATTACK_FACTOR = 7; // temp
     int _ATTACK_FACTOR = 2; // temp
     public int ATTACK_FACTOR {
         get { return _ATTACK_FACTOR; }
@@ -203,8 +203,8 @@ public class Storyteller : MonoBehaviour {
                 StartCoroutine(unlockFeature(type, listener));
                 break;
 
-            case (int)Catalog.Feature.Flowers:
-                listener = raiseFlowers;
+            case (int)Catalog.Feature.Orchard:
+                listener = raiseOrchard;
                 StartCoroutine(unlockFeature(type, listener));
                 break;
 
@@ -309,7 +309,7 @@ public class Storyteller : MonoBehaviour {
         sanctum.existingFeatures = new List<int>(record.existingFeatures);
 
         sanctum.features[(int)Catalog.Feature.House] = record.housesAmount;
-        sanctum.features[(int)Catalog.Feature.Flowers] = record.flowersAmount;
+        sanctum.features[(int)Catalog.Feature.Orchard] = record.orchardsAmount;
         sanctum.features[(int)Catalog.Feature.Shrine] = record.shrinesAmount;
         sanctum.features[(int)Catalog.Feature.Beacon] = record.beaconsAmount;
 
@@ -319,7 +319,7 @@ public class Storyteller : MonoBehaviour {
 
         // have to manually update displays
         stage.housesAmountText.text = "" + record.housesAmount;
-        stage.flowersAmountText.text = "" + record.flowersAmount;
+        stage.orchardsAmountText.text = "" + record.orchardsAmount;
         stage.shrinesAmountText.text = "" + record.shrinesAmount;
         stage.beaconsAmountText.text = "" + record.shrinesAmount;
 
@@ -491,12 +491,12 @@ public class Storyteller : MonoBehaviour {
         StartCoroutine (displayMessages (pickRandomMessage(Script.house)));
 	}
 
-    void raiseFlowers() {
-        if (sanctum.Points < catalog.costs[(int)Catalog.Feature.Flowers])
+    void raiseOrchard() {
+        if (sanctum.Points < catalog.costs[(int)Catalog.Feature.Orchard])
             return;
 
-        sanctum.addFeature ((int)Catalog.Feature.Flowers);
-        StartCoroutine (displayMessages (pickRandomMessage(Script.flowers)));
+        sanctum.addFeature ((int)Catalog.Feature.Orchard);
+        StartCoroutine (displayMessages (pickRandomMessage(Script.orchard)));
     }
 
     void raiseShrine() {

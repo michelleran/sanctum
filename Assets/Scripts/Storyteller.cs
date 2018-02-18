@@ -7,7 +7,7 @@ public class Storyteller : MonoBehaviour {
 
 	// CONSTANTS
 
-	public const float SECONDS_BETWEEN_MESSAGES = 1.0f;
+	public const float SECONDS_BETWEEN_MESSAGES = 4.0f;
 
 	public const float GATE_OPEN_DURATION = 30f;
 	public const float GATE_COOLDOWN = 20f;
@@ -183,9 +183,11 @@ public class Storyteller : MonoBehaviour {
 			yield return new WaitForSeconds(0.1f);
 
 		isTellingStory = true;
-		foreach (string message in messages) {
-            stage.storyText.text = "\n" + message + "\n" + stage.storyText.text;
-            yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
+        for (int i = 0; i < messages.Length; i++) {
+            stage.storyText.text = "\n" + messages[i] + "\n" + stage.storyText.text;
+
+            if (i < messages.Length) // if there are any messages left
+                yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
 		}
 
 		isTellingStory = false;

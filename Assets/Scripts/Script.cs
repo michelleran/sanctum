@@ -4,8 +4,10 @@ using System.Collections.Generic;
 public class Script {
     // TUTORIAL
     public static string[] tutorialA = {
-        "though your link to the outside is a tenuous one, you've heard of what's happened; you've heard of the blight and its grim work.",
-        "maybe you can't call down lightning, smite foes, bend the wind and seas, but surely there's something you can do to help.",
+        "though your link to the outside is a tenuous one, you've heard of what's happened;", 
+        "you've heard of the blight and its grim work.",
+        "maybe you can't call down lightning, smite foes, bend the wind and seas,", 
+        "but surely there's something you can do to help.",
         "anything."
     };
 
@@ -18,14 +20,17 @@ public class Script {
 
     public static string[] tutorialC = {
         "the gates open.",
-        "walking as if in a dream, the stranger stumbles through and only then wakes, and gazes around with eyes weary and wide.",
+        "walking as if in a dream, the stranger stumbles through", 
+        "and only then wakes, and gazes around with eyes weary and wide.",
         "gratitude suffuses you, abruptly enough to startle",
         "but after surprise comes a strength you've sorely missed."
     };
 
     public static string[] tutorialD = {
-        "it takes some time, but you recall the shape of dwellings, the proper comforts of a place of refuge.",
-        "the air and earth together breathe one into form and the stranger enters, and rests.",
+        "it takes some time, but you recall the shape of dwellings,", 
+        "the proper comforts of a place of refuge.",
+        "the air and earth together breathe one into form", 
+        "and the stranger enters, and rests.",
         "the gates close. they, too, tire.",
         "now, once more, you wait."
     };

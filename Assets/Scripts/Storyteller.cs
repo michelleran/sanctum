@@ -19,11 +19,9 @@ public class Storyteller : MonoBehaviour {
     public int EVENT_FACTOR {
         get { return _EVENT_FACTOR; }
         set {
-            Debug.Log("new event factor: " + value);
             _EVENT_FACTOR = value;
-            if (_EVENT_FACTOR <= MIN_EVENT_FACTOR) { // min event factor; temp
+            if (_EVENT_FACTOR <= MIN_EVENT_FACTOR) // min event factor; temp
                 stage.raiseBeaconButton.interactable = false;
-            }
         }
     }
 
@@ -33,9 +31,8 @@ public class Storyteller : MonoBehaviour {
         get { return _ATTACK_FACTOR; }
         set {
             _ATTACK_FACTOR = value;
-            if (_ATTACK_FACTOR >= MAX_ATTACK_FACTOR) {
+            if (_ATTACK_FACTOR >= MAX_ATTACK_FACTOR)
                 stage.raiseShrinesButton.interactable = false;
-            }
         }
     }
 

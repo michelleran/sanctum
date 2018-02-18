@@ -90,6 +90,8 @@ public class Storyteller : MonoBehaviour {
         } else {
             beginTutorial();
         }
+
+        stage.restartButton.onClick.AddListener(archivist.restart);
 	}
 
 	void Update () {
@@ -186,8 +188,10 @@ public class Storyteller : MonoBehaviour {
         for (int i = 0; i < messages.Length; i++) {
             stage.storyText.text = "\n" + messages[i] + "\n" + stage.storyText.text;
 
-            if (i < messages.Length) // if there are any messages left
-                yield return new WaitForSeconds (SECONDS_BETWEEN_MESSAGES);
+            if (i < messages.Length - 1) // if there are any messages left
+                yield return new WaitForSeconds(SECONDS_BETWEEN_MESSAGES);
+            else
+                yield return new WaitForSeconds(SECONDS_BETWEEN_MESSAGES/2);
 		}
 
 		isTellingStory = false;

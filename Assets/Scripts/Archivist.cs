@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class Archivist : MonoBehaviour {
 
@@ -46,5 +48,16 @@ public class Archivist : MonoBehaviour {
         Record record = (Record)bf.Deserialize(file);
         file.Close();
         return record;
+    }
+
+    public void restart() {
+        Debug.Log("trying to restart");
+        if (saveExists()) {
+            Debug.Log("about to delete save");
+            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/record.gd");
+        }
+
+        Debug.Log("about to reload");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

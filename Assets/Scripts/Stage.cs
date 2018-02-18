@@ -50,4 +50,6 @@ public class Stage : MonoBehaviour {
     public Button raiseOrchardButton;
     public Button raiseShrinesButton;
     public Button raiseBeaconButton;
+
+    public Button restartButton;
 }

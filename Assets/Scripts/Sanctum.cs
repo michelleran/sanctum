@@ -123,8 +123,6 @@ public class Sanctum : MonoBehaviour {
 
     public void addFeature(int type) {
 
-        Debug.Log("in addfeature");
-
         if (features[type] == 0)
             existingFeatures.Add(type);
 
@@ -145,11 +143,7 @@ public class Sanctum : MonoBehaviour {
                 break;
         }
 
-        Debug.Log("points: " + Points + "; cost: " + catalog.costs[type]);
-
         Points -= catalog.costs[type];
-
-        Debug.Log("now points are: " + points);
 
         // double cost
         catalog.costs[type] *= 2;

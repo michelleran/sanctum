@@ -34,9 +34,6 @@ public class Maestro : MonoBehaviour {
         yield return new WaitForSeconds(person.interval);
 
         if (person.IsAlive && person.obj != null)
-        {
             person.obj.GetComponent<AudioSource>().Play();
-            //Debug.Log("playing a note lala: " + person.note + " @ " + person.interval);
-        }
     }
 }

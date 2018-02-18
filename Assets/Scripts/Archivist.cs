@@ -30,8 +30,6 @@ public class Archivist : MonoBehaviour {
         FileStream file = File.Create(Application.persistentDataPath + "/record.gd");
         bf.Serialize(file, record);
         file.Close();
-
-        Debug.Log(Application.persistentDataPath);
     }
 
     public bool saveExists() {
@@ -42,7 +40,6 @@ public class Archivist : MonoBehaviour {
     }
 
     public Record load() {
-        Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/record.gd", FileMode.Open);
         Record record = (Record)bf.Deserialize(file);
@@ -51,13 +48,9 @@ public class Archivist : MonoBehaviour {
     }
 
     public void restart() {
-        Debug.Log("trying to restart");
-        if (saveExists()) {
-            Debug.Log("about to delete save");
+        if (saveExists())
             FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/record.gd");
-        }
 
-        Debug.Log("about to reload");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

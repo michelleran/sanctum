@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class Archivist : MonoBehaviour {
 
@@ -49,7 +46,7 @@ public class Archivist : MonoBehaviour {
 
     public void restart() {
         if (saveExists())
-            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/record.gd");
+            File.Move(Application.persistentDataPath + "/record.gd", Application.persistentDataPath + "/old.gd");
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

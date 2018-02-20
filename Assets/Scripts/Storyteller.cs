@@ -7,7 +7,7 @@ public class Storyteller : MonoBehaviour {
 
 	// CONSTANTS
 
-	public const float SECONDS_BETWEEN_MESSAGES = 3.0f;
+	public const float SECONDS_BETWEEN_MESSAGES = 4.0f;
 
 	public const float GATE_OPEN_DURATION = 20f;
 	public const float GATE_COOLDOWN = 15f;
@@ -20,13 +20,13 @@ public class Storyteller : MonoBehaviour {
         get { return _EVENT_FACTOR; }
         set {
             _EVENT_FACTOR = value;
-            if (_EVENT_FACTOR <= MIN_EVENT_FACTOR) // min event factor; temp
+            if (_EVENT_FACTOR <= MIN_EVENT_FACTOR) // min event factor
                 stage.raiseBeaconButton.interactable = false;
         }
     }
 
-    public const int MAX_ATTACK_FACTOR = 7; // temp
-    int _ATTACK_FACTOR = 2; // temp
+    public const int MAX_ATTACK_FACTOR = 7;
+    int _ATTACK_FACTOR = 2;
     public int ATTACK_FACTOR {
         get { return _ATTACK_FACTOR; }
         set {
@@ -36,13 +36,13 @@ public class Storyteller : MonoBehaviour {
         }
     }
 
-    public const int DEATH_FACTOR = 5; // temp
+    public const int DEATH_FACTOR = 5;
 
-    public const float REQUEST_INTERVAL = 40f; // temp
-    public const int REQUEST_FACTOR = 2; // temp
+    public const float REQUEST_INTERVAL = 40f;
+    public int REQUEST_FACTOR = 1; // larger over time
 
-    public const float OBSERVANCE_INTERVAL = 60f; // temp
-    public const int OBSERVANCE_FACTOR = 3; // temp
+    public const float OBSERVANCE_INTERVAL = 60f;
+    public const int OBSERVANCE_FACTOR = 3;
 
 
     // REFERENCES
@@ -437,6 +437,8 @@ public class Storyteller : MonoBehaviour {
             int i = Random.Range(0, catalog.locked.Count);
             StartCoroutine (displayMessages (person.name + Script.request[catalog.locked[i]]));
             unlockFeature(catalog.locked[i]);
+
+            REQUEST_FACTOR++;
         }
     }
 

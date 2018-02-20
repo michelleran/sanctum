@@ -7,10 +7,10 @@ public class Storyteller : MonoBehaviour {
 
 	// CONSTANTS
 
-	public const float SECONDS_BETWEEN_MESSAGES = 4.0f;
+	public const float SECONDS_BETWEEN_MESSAGES = 3.0f;
 
-	public const float GATE_OPEN_DURATION = 30f;
-	public const float GATE_COOLDOWN = 20f;
+	public const float GATE_OPEN_DURATION = 20f;
+	public const float GATE_COOLDOWN = 15f;
 
 	public const float EVENT_INTERVAL = 10f;
 
@@ -38,11 +38,11 @@ public class Storyteller : MonoBehaviour {
 
     public const int DEATH_FACTOR = 5; // temp
 
-    public const float REQUEST_INTERVAL = 30f; // temp
-    public const int REQUEST_FACTOR = 3; // temp
+    public const float REQUEST_INTERVAL = 40f; // temp
+    public const int REQUEST_FACTOR = 2; // temp
 
-    public const float OBSERVANCE_INTERVAL = 30f; // temp
-    public const int OBSERVANCE_FACTOR = 5; // temp
+    public const float OBSERVANCE_INTERVAL = 60f; // temp
+    public const int OBSERVANCE_FACTOR = 3; // temp
 
 
     // REFERENCES
@@ -182,8 +182,15 @@ public class Storyteller : MonoBehaviour {
 			yield return new WaitForSeconds(0.1f);
 
 		isTellingStory = true;
-        for (int i = 0; i < messages.Length; i++) {
-            stage.storyText.text = "\n" + messages[i] + "\n" + stage.storyText.text;
+        for (int i = 0; i < messages.Length; i++)
+        {
+            string text = stage.storyText.text;
+            if (text.Length > 3000) {
+                var index = text.LastIndexOf(System.Environment.NewLine, System.StringComparison.CurrentCulture);
+                text = text.Substring(0, index);
+            }
+
+            stage.storyText.text = "\n" + messages[i] + "\n" + text;
 
             if (i < messages.Length - 1) // if there are any messages left
                 yield return new WaitForSeconds(SECONDS_BETWEEN_MESSAGES);

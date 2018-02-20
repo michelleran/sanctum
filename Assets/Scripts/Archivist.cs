@@ -46,7 +46,7 @@ public class Archivist : MonoBehaviour {
 
     public void restart() {
         if (saveExists())
-            File.Move(Application.persistentDataPath + "/record.gd", Application.persistentDataPath + "/old.gd"); // TODO: if there's already an old.gd, will throw error
+            File.Delete(Application.persistentDataPath + "/record.gd");
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

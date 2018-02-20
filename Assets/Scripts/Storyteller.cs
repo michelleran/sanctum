@@ -12,10 +12,10 @@ public class Storyteller : MonoBehaviour {
 	public const float GATE_OPEN_DURATION = 20f;
 	public const float GATE_COOLDOWN = 15f;
 
-	public const float EVENT_INTERVAL = 10f;
+	public const float EVENT_INTERVAL = 5f;
 
     public const int MIN_EVENT_FACTOR = 1;
-    int _EVENT_FACTOR = 4;
+    int _EVENT_FACTOR = 6;
     public int EVENT_FACTOR {
         get { return _EVENT_FACTOR; }
         set {
@@ -25,7 +25,7 @@ public class Storyteller : MonoBehaviour {
         }
     }
 
-    public const int MAX_ATTACK_FACTOR = 5; // temp
+    public const int MAX_ATTACK_FACTOR = 7; // temp
     int _ATTACK_FACTOR = 2; // temp
     public int ATTACK_FACTOR {
         get { return _ATTACK_FACTOR; }

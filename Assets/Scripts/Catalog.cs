@@ -62,6 +62,10 @@ public class Catalog : MonoBehaviour
         };
 
         locked = new List<int>();
-        locked.AddRange((int[])Enum.GetValues(typeof(Feature)));
+        //locked.AddRange((int[])Enum.GetValues(typeof(Feature)));
+        locked.Add((int)Feature.House);
+        locked.Add((int)Feature.Orchard);
+        locked.Add((int)Feature.Shrine);
+        locked.Add((int)Feature.Beacon);
     }
 }
